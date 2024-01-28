@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1452</width>
+    <width>1448</width>
     <height>798</height>
    </rect>
   </property>
@@ -638,7 +638,7 @@
       <x>880</x>
       <y>400</y>
       <width>200</width>
-      <height>311</height>
+      <height>171</height>
      </rect>
     </property>
     <property name="title">
@@ -648,7 +648,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>50</y>
+       <y>40</y>
        <width>80</width>
        <height>20</height>
       </rect>
@@ -661,7 +661,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>110</y>
+       <y>60</y>
        <width>81</width>
        <height>20</height>
       </rect>
@@ -674,7 +674,7 @@
      <property name="geometry">
       <rect>
        <x>80</x>
-       <y>50</y>
+       <y>40</y>
        <width>110</width>
        <height>20</height>
       </rect>
@@ -687,7 +687,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>130</y>
+       <y>80</y>
        <width>180</width>
        <height>50</height>
       </rect>
@@ -704,7 +704,7 @@ p, li { white-space: pre-wrap; }
      <property name="geometry">
       <rect>
        <x>9</x>
-       <y>190</y>
+       <y>140</y>
        <width>181</width>
        <height>20</height>
       </rect>
@@ -739,32 +739,6 @@ p, li { white-space: pre-wrap; }
       <string/>
      </property>
     </widget>
-    <widget class="QLabel" name="label_15">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>80</y>
-       <width>80</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>在线人数  ：</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_online_player">
-     <property name="geometry">
-      <rect>
-       <x>80</x>
-       <y>80</y>
-       <width>110</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
    </widget>
    <widget class="QGroupBox" name="groupBox_5">
     <property name="geometry">
@@ -776,15 +750,15 @@ p, li { white-space: pre-wrap; }
      </rect>
     </property>
     <property name="title">
-     <string>玩家列表(间隔10秒获取)</string>
+     <string>玩家列表</string>
     </property>
     <widget class="QTableWidget" name="table_widget_player_list">
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>20</y>
+       <y>49</y>
        <width>330</width>
-       <height>550</height>
+       <height>520</height>
       </rect>
      </property>
      <column>
@@ -802,6 +776,45 @@ p, li { white-space: pre-wrap; }
        <string>玩家StramID</string>
       </property>
      </column>
+    </widget>
+    <widget class="QLabel" name="label_15">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>80</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>在线人数  ：</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_online_player">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>20</y>
+       <width>110</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="button_refresh_player_list">
+     <property name="geometry">
+      <rect>
+       <x>260</x>
+       <y>20</y>
+       <width>75</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>刷新</string>
+     </property>
     </widget>
    </widget>
    <widget class="QGroupBox" name="groupBox_6">
@@ -908,7 +921,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1452</width>
+     <width>1448</width>
      <height>21</height>
     </rect>
    </property>
@@ -943,7 +956,7 @@ p, li { white-space: pre-wrap; }
      <y>121</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1432</x>
+     <x>1431</x>
      <y>53</y>
     </hint>
    </hints>
@@ -991,7 +1004,7 @@ p, li { white-space: pre-wrap; }
      <y>196</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1433</x>
+     <x>1431</x>
      <y>106</y>
     </hint>
    </hints>
@@ -1023,7 +1036,7 @@ p, li { white-space: pre-wrap; }
      <y>118</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1432</x>
+     <x>1431</x>
      <y>139</y>
     </hint>
    </hints>
@@ -1039,7 +1052,7 @@ p, li { white-space: pre-wrap; }
      <y>123</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1432</x>
+     <x>1431</x>
      <y>155</y>
     </hint>
    </hints>
@@ -1055,7 +1068,7 @@ p, li { white-space: pre-wrap; }
      <y>368</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1433</x>
+     <x>1431</x>
      <y>170</y>
     </hint>
    </hints>
@@ -1316,6 +1329,22 @@ p, li { white-space: pre-wrap; }
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>button_refresh_player_list</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>button_refresh_player_list_click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1399</x>
+     <y>63</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1429</x>
+     <y>453</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>button_select_file_click()</slot>
@@ -1340,5 +1369,6 @@ p, li { white-space: pre-wrap; }
   <slot>button_select_backup_dir_click()</slot>
   <slot>line_edit_auto_backup_time_limit_textchange()</slot>
   <slot>check_box_auto_backup_click()</slot>
+  <slot>button_refresh_player_list_click()</slot>
  </slots>
 </ui>

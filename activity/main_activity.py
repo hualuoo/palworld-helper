@@ -37,7 +37,7 @@ class Window(QMainWindow):
             self.setWindowTitle("幻兽帕鲁开服助手 - PalServer Helper " + setting.version + " - " + setting.publicity_ad)
         else:
             self.setWindowTitle("幻兽帕鲁开服助手 - PalServer Helper " + setting.version)
-        self.setFixedSize(1452, 738)
+        self.setFixedSize(1450, 730)
         self.setWindowIcon(QIcon(os.path.join(self.module_path, r"../resource/favicon.ico")))
         self.table_widget_player_list.setColumnWidth(0, 80)
         self.table_widget_player_list.setColumnWidth(1, 100)
@@ -342,94 +342,6 @@ class Window(QMainWindow):
         server_name = rcon_result[rcon_result.index("]")+2:]
         self.text_edit_server_name.setText(server_name)
 
-        self.get_server_info_qtimer = QTimer(self)
-        self.get_server_info_qtimer.timeout.connect(self.get_server_info)
-        self.get_server_info_qtimer.start(10000)
-        self.get_server_info()
-
-    def get_server_info(self):
-        self.table_widget_player_list.clearContents()
-        self.table_widget_player_list.setRowCount(0)
-
-        if self.rcon_connect_flag is False:
-            self.get_server_info_qtimer.stop()
-            return
-
-        self.player_list_menu = QMenu(self)
-        kick_action = QAction('踢出该玩家', self)
-        kick_action.triggered.connect(self.kick_player)
-        ban_action = QAction('封禁该玩家', self)
-        ban_action.triggered.connect(self.ban_player)
-        copy_uid_action = QAction('复制玩家UID', self)
-        copy_uid_action.triggered.connect(self.copy_uid)
-        copy_steamid_action = QAction('复制玩家StramID', self)
-        copy_steamid_action.triggered.connect(self.copy_steamid)
-        self.player_list_menu.addAction(kick_action)
-        self.player_list_menu.addAction(ban_action)
-        self.player_list_menu.addAction(copy_uid_action)
-        self.player_list_menu.addAction(copy_steamid_action)
-        self.table_widget_player_list.setContextMenuPolicy(Qt.CustomContextMenu)
-        self.table_widget_player_list.customContextMenuRequested.connect(self.show_player_list_menu)
-
-        rcon_result = self.pal_rcon.command("showplayers")
-        player_list = rcon_result.split("\n")[1:]
-        player_id = 0
-        self.player_list = []
-        for player in player_list:
-            if player == "":
-                continue
-            player_info = player.split(",")
-            self.player_list.append(player_info)
-            self.table_widget_player_list.insertRow(player_id)
-            item = QTableWidgetItem(player_info[0])
-            item.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
-            self.table_widget_player_list.setItem(player_id, 0, item)
-            item = QTableWidgetItem(player_info[1])
-            item.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
-            self.table_widget_player_list.setItem(player_id, 1, item)
-            item = QTableWidgetItem(player_info[2])
-            item.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
-            self.table_widget_player_list.setItem(player_id, 2, item)
-            player_id += 1
-
-        self.label_online_player.setText(str(player_id) + "/" + str(self.config["game_player_limit"]))
-
-    def kick_player(self):
-        selected_items = self.table_widget_player_list.selectedItems()
-        if selected_items:
-            selected_row = selected_items[0].row()
-            player_uid = self.player_list[selected_row][1]
-            command = "KickPlayer " + player_uid
-            self.text_browser_rcon_server_notice("client_command", command)
-            rcon_result = self.pal_rcon.command(command)
-            self.text_browser_rcon_server_notice("server_success", rcon_result[:-1])
-        self.get_server_info()
-
-    def ban_player(self):
-        selected_items = self.table_widget_player_list.selectedItems()
-        if selected_items:
-            selected_row = selected_items[0].row()
-            player_uid = self.player_list[selected_row][1]
-            command = "BanPlayer " + player_uid
-            self.text_browser_rcon_server_notice("client_command", command)
-            rcon_result = self.pal_rcon.command(command)
-            self.text_browser_rcon_server_notice("server_success", rcon_result[:-1])
-        self.get_server_info()
-
-    def copy_uid(self):
-        selected_items = self.table_widget_player_list.selectedItems()
-        if selected_items:
-            selected_row = selected_items[0].row()
-            player_uid = self.player_list[selected_row][1]
-            pyperclip.copy(player_uid)
-
-    def copy_steamid(self):
-        selected_items = self.table_widget_player_list.selectedItems()
-        if selected_items:
-            selected_row = selected_items[0].row()
-            player_steamid = self.player_list[selected_row][2]
-            pyperclip.copy(player_steamid)
-
     def button_game_start_click(self):
         if "palserver_path" not in self.config:
             self.text_browser_rcon_server_notice("client_error", "请先选择PalServer.exe服务端文件！")
@@ -624,3 +536,87 @@ class Window(QMainWindow):
             self.check_box_auto_backup.setEnabled(True)
             self.line_edit_auto_backup_time_limit.setEnabled(True)
 
+    def button_refresh_player_list_click(self):
+        if self.rcon_connect_flag is False:
+            self.text_browser_rcon_server_notice("client_error", "请先连接 RCON ！")
+            return
+
+        self.table_widget_player_list.clearContents()
+        self.table_widget_player_list.setRowCount(0)
+
+        self.player_list_menu = QMenu(self)
+        kick_action = QAction('踢出该玩家', self)
+        kick_action.triggered.connect(self.kick_player)
+        ban_action = QAction('封禁该玩家', self)
+        ban_action.triggered.connect(self.ban_player)
+        copy_uid_action = QAction('复制玩家UID', self)
+        copy_uid_action.triggered.connect(self.copy_uid)
+        copy_steamid_action = QAction('复制玩家StramID', self)
+        copy_steamid_action.triggered.connect(self.copy_steamid)
+        self.player_list_menu.addAction(kick_action)
+        self.player_list_menu.addAction(ban_action)
+        self.player_list_menu.addAction(copy_uid_action)
+        self.player_list_menu.addAction(copy_steamid_action)
+        self.table_widget_player_list.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.table_widget_player_list.customContextMenuRequested.connect(self.show_player_list_menu)
+
+        rcon_result = self.pal_rcon.command("showplayers")
+        player_list = rcon_result.split("\n")[1:]
+        player_id = 0
+        self.player_list = []
+        for player in player_list:
+            if player == "":
+                continue
+            player_info = player.split(",")
+            if len(player_info) < 3:
+                continue
+            self.player_list.append(player_info)
+            self.table_widget_player_list.insertRow(player_id)
+            item = QTableWidgetItem(player_info[0])
+            item.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
+            self.table_widget_player_list.setItem(player_id, 0, item)
+            item = QTableWidgetItem(player_info[1])
+            item.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
+            self.table_widget_player_list.setItem(player_id, 1, item)
+            item = QTableWidgetItem(player_info[2])
+            item.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
+            self.table_widget_player_list.setItem(player_id, 2, item)
+            player_id += 1
+
+        self.label_online_player.setText(str(player_id) + "/" + str(self.config["game_player_limit"]))
+
+    def kick_player(self):
+        selected_items = self.table_widget_player_list.selectedItems()
+        if selected_items:
+            selected_row = selected_items[0].row()
+            player_uid = self.player_list[selected_row][1]
+            command = "KickPlayer " + player_uid
+            self.text_browser_rcon_server_notice("client_command", command)
+            rcon_result = self.pal_rcon.command(command)
+            self.text_browser_rcon_server_notice("server_success", rcon_result[:-1])
+        self.get_server_info()
+
+    def ban_player(self):
+        selected_items = self.table_widget_player_list.selectedItems()
+        if selected_items:
+            selected_row = selected_items[0].row()
+            player_uid = self.player_list[selected_row][1]
+            command = "BanPlayer " + player_uid
+            self.text_browser_rcon_server_notice("client_command", command)
+            rcon_result = self.pal_rcon.command(command)
+            self.text_browser_rcon_server_notice("server_success", rcon_result[:-1])
+        self.get_server_info()
+
+    def copy_uid(self):
+        selected_items = self.table_widget_player_list.selectedItems()
+        if selected_items:
+            selected_row = selected_items[0].row()
+            player_uid = self.player_list[selected_row][1]
+            pyperclip.copy(player_uid)
+
+    def copy_steamid(self):
+        selected_items = self.table_widget_player_list.selectedItems()
+        if selected_items:
+            selected_row = selected_items[0].row()
+            player_steamid = self.player_list[selected_row][2]
+            pyperclip.copy(player_steamid)
