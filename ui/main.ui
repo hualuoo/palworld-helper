@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1448</width>
-    <height>798</height>
+    <width>1454</width>
+    <height>759</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -638,11 +638,11 @@
       <x>880</x>
       <y>400</y>
       <width>200</width>
-      <height>171</height>
+      <height>170</height>
      </rect>
     </property>
     <property name="title">
-     <string>服务器信息</string>
+     <string>服务端信息</string>
     </property>
     <widget class="QLabel" name="label_11">
      <property name="geometry">
@@ -746,7 +746,7 @@ p, li { white-space: pre-wrap; }
       <x>1090</x>
       <y>10</y>
       <width>350</width>
-      <height>580</height>
+      <height>560</height>
      </rect>
     </property>
     <property name="title">
@@ -758,7 +758,7 @@ p, li { white-space: pre-wrap; }
        <x>10</x>
        <y>49</y>
        <width>330</width>
-       <height>520</height>
+       <height>500</height>
       </rect>
      </property>
      <column>
@@ -904,15 +904,158 @@ p, li { white-space: pre-wrap; }
    <widget class="QGroupBox" name="groupBox_7">
     <property name="geometry">
      <rect>
-      <x>1089</x>
-      <y>600</y>
-      <width>351</width>
-      <height>110</height>
+      <x>1150</x>
+      <y>580</y>
+      <width>290</width>
+      <height>130</height>
      </rect>
     </property>
     <property name="title">
      <string>等待更新</string>
     </property>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_8">
+    <property name="geometry">
+     <rect>
+      <x>880</x>
+      <y>580</y>
+      <width>261</width>
+      <height>130</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>服务器资源情况</string>
+    </property>
+    <widget class="QLabel" name="label_18">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>70</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>服务器 CPU：</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_19">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>40</y>
+       <width>70</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>服务器内存：</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_cpu_info">
+     <property name="geometry">
+      <rect>
+       <x>88</x>
+       <y>20</y>
+       <width>160</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_mem_info">
+     <property name="geometry">
+      <rect>
+       <x>89</x>
+       <y>40</y>
+       <width>160</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_20">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>60</y>
+       <width>91</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>服务端内存：</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_21">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>80</y>
+       <width>91</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>服务端硬盘：</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_mem_info_2">
+     <property name="geometry">
+      <rect>
+       <x>89</x>
+       <y>60</y>
+       <width>160</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_22">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>100</y>
+       <width>90</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>备份  硬盘：</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_disk_info">
+     <property name="geometry">
+      <rect>
+       <x>89</x>
+       <y>80</y>
+       <width>160</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_disk_info_2">
+     <property name="geometry">
+      <rect>
+       <x>89</x>
+       <y>100</y>
+       <width>160</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -921,7 +1064,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1448</width>
+     <width>1454</width>
      <height>21</height>
     </rect>
    </property>

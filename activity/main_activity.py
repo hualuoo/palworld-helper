@@ -101,11 +101,14 @@ class Window(QMainWindow):
                 if self.config["auto_backup_flag"]:
                     self.check_box_auto_backup_click(True)
 
-        self.timed_detection_timer = QTimer(self)
-        self.timed_detection_timer.timeout.connect(self.timed_detection)
-        self.timed_detection_timer.start(1000)
+        self.timed_detection_timer_1000 = QTimer(self)
+        self.timed_detection_timer_1000.timeout.connect(self.timed_detection_1000)
+        self.timed_detection_timer_1000.start(1000)
+        self.timed_detection_timer_5000 = QTimer(self)
+        self.timed_detection_timer_5000.timeout.connect(self.timed_detection_5000)
+        self.timed_detection_timer_5000.start(5000)
 
-    def timed_detection(self):
+    def timed_detection_1000(self):
         if self.server_run_flag:
             if "palserver_pid" in self.config:
                 if psutil.pid_exists(self.config["palserver_pid"]) is False:
@@ -154,6 +157,32 @@ class Window(QMainWindow):
                 shutil.copytree(old_dir_path, new_dir_path)
                 self.text_browser_rcon_server_notice("client_success", "存档自动备份完成！备份路径：" + str(os.path.abspath(new_dir_path)))
                 self.last_auto_backup_time = datetime.now()
+
+    def timed_detection_5000(self):
+        self.label_cpu_info.setText(str(psutil.cpu_percent(interval=0)) + "%")
+        self.label_mem_info.setText(str(round(psutil.virtual_memory().used / (1024 * 1024), 2)) + " MB / " + str(round(psutil.virtual_memory().total / (1024 * 1024), 2)) + "MB")
+
+        if "palserver_path" in self.config:
+            total, used, free = shutil.disk_usage(self.config["palserver_path"])
+            self.label_disk_info.setText(str(round(used / (1024 * 1024 * 1024), 2)) + " GB / " + str(round(total / (1024 * 1024 * 1024), 2)) + " GB")
+        else:
+            self.label_disk_info.setText("未设置")
+
+        if "backup_dir_path" in self.config:
+            total, used, free = shutil.disk_usage(self.config["backup_dir_path"])
+            self.label_disk_info_2.setText(str(round(used / (1024 * 1024 * 1024), 2)) + " GB / " + str(round(total / (1024 * 1024 * 1024), 2)) + " GB")
+        else:
+            self.label_disk_info_2.setText("未设置")
+
+        if self.server_run_flag:
+            mem_info = 0
+            psu_proc = psutil.Process(self.config["palserver_pid"])
+            pcs = psu_proc.children(recursive=True)
+            for proc in pcs:
+                mem_info += proc.memory_full_info().rss
+            self.label_mem_info_2.setText(str(round(mem_info / (1024 * 1024), 2)) + " MB")
+        else:
+            self.label_mem_info_2.setText("0 MB")
 
     def text_browser_rcon_server_notice(self, message_type, message):
         black_format = QTextCharFormat()
