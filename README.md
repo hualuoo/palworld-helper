@@ -6,11 +6,11 @@
 </h1>
 <h3 align="center">幻兽帕鲁开服助手</h3>
 <p align="center">
-  <a href="https://github.com/hualuoo/palworld-helper/releases">
+  <a href="https://www.python.org/">
     <img src="https://img.shields.io/badge/Language-Python-blue?style=flat-square"/>
   </a>
   <a href="https://github.com/hualuoo/palworld-helper/releases">
-    <img src="https://img.shields.io/badge/Release-V1.0.6-blue?style=flat-square"/>
+    <img src="https://img.shields.io/badge/Release-V1.0.7-blue?style=flat-square"/>
   </a>
 </p>
 <h4 align="center">3小时用PyQt搓出来的小工具，交流Q群：209726238</h4>
@@ -26,7 +26,7 @@
 * :family_woman_girl_boy: 自动重启支持人数检测，可避免玩家高峰期自动重启
 * :link: 提供常见快捷指令，例如自动倒计时关服广播、踢出玩家等
 * :eye_speech_bubble: (等待更新)存档修复
-* :zap: (等待更新) 倍率等配置文件可视化修改
+* :zap: 倍率等配置文件可视化修改
 * :outbox_tray: (等待更新) 背包编辑
 * :art: (后续计划) 迁移至flutter使界面更加美观
 * 🌈 ... ...

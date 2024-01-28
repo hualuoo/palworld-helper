@@ -1,0 +1,2673 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1055</width>
+    <height>755</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QScrollArea" name="scrollArea">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>880</width>
+      <height>660</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>0</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="widgetResizable">
+     <bool>true</bool>
+    </property>
+    <widget class="QWidget" name="scrollAreaWidgetContents_3">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>-902</y>
+       <width>861</width>
+       <height>1560</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>860</width>
+       <height>1560</height>
+      </size>
+     </property>
+     <widget class="QLabel" name="label_32">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>580</y>
+        <width>500</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>建筑劣化倍率（范围：0-10；默认：1）</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_70">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>850</y>
+        <width>500</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>是否开启神秘的UNKO事件（范围：True/False；默认：False）</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_54">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>670</y>
+        <width>210</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>CollectionObjectRespawnSpeedRate</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_29">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>340</y>
+        <width>210</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>PlayerStaminaDecreaceRate</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_2">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>5</y>
+        <width>500</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>世界难度（默认：None）
+  PS：难度修改不影响下列参数的调整。</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_22">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>310</y>
+        <width>210</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>PlayerStomachDecreaceRate</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_65">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>970</y>
+        <width>210</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>DropItemMaxNum_UNKO</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_63">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>970</y>
+        <width>500</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>世界内神秘UNKO掉落物的上限（范围：0-500；默认：100）</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_15">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>220</y>
+        <width>500</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>帕鲁受到的伤害倍率（范围：0.1-5；默认：1）</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_68">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>820</y>
+        <width>500</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>是否开启袭击事件（范围：True/False；默认：True）</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_41">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>490</y>
+        <width>500</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>帕鲁生命值自然回复速度（范围：0.1-5；默认：1）</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_56">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>820</y>
+        <width>210</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>bEnableInvaderEnemy</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_31">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>430</y>
+        <width>210</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>PalStomachDecreaceRate</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_51">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>665</y>
+        <width>500</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>采集资源重生间隔（范围：0.5-3；默认：1）
+  PS: 树木大矿石默认重生为1小时，设置为0.5即0.5小时重生。</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_59">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>1000</y>
+        <width>500</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>据点的最大数量（范围：1-256；默认128）</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_43">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>550</y>
+        <width>500</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>建筑受到的伤害倍率（范围：0.5-3；默认：1）</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_47">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>725</y>
+        <width>500</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>死亡惩罚（None：全部不掉落/ Item：仅掉落道具/ ItemAndEquipment：除了帕鲁其他全掉/ 
+          All：帕鲁、装备、道具全部掉落，不包含无法掉落的帕鲁专属装备如马鞍）</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_66">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>850</y>
+        <width>210</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>bActiveUNKO</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_45">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>730</y>
+        <width>210</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>DeathPenalty</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_28">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>640</y>
+        <width>210</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>CollectionObjectHpRate</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_49">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>760</y>
+        <width>210</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>bEnablePlayerToPlayerDamage</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_3">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>40</y>
+        <width>500</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>白天流逝速度（范围：0.1-5；默认：1）</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_40">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>460</y>
+        <width>210</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>PalStaminaDecreaceRate</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="comboBox_Difficulty">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>10</y>
+        <width>80</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text">
+        <string>None</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Easy</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Normal</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Hard</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QLabel" name="label_14">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>190</y>
+        <width>210</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>PalDamageRateAttack</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_61">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>1060</y>
+        <width>210</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>DropItemAliveMaxHours</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="doubleSpinBox_DayTimeSpeedRate">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>40</y>
+        <width>80</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="decimals">
+       <number>6</number>
+      </property>
+      <property name="minimum">
+       <double>0.100000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>5.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>0.100000000000000</double>
+      </property>
+      <property name="value">
+       <double>1.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_44">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>490</y>
+        <width>210</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>PalAutoHPRegeneRate</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_58">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>880</y>
+        <width>210</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>bEnableAimAssistPad</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_8">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>100</y>
+        <width>210</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>ExpRate</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_7">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>100</y>
+        <width>500</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>经验值倍率（范围：0.1-20；默认：1）</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_11">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>155</y>
+        <width>500</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>帕鲁的重生数量（范围：0.5-3；默认：1）
+  PS：超过3会经常导致帕鲁重叠或掉出地图，并且会导致游戏性能下降，请谨慎调整。</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_5">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>70</y>
+        <width>500</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>夜晚流逝速度（范围：0.1-5；默认：1）</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_35">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>400</y>
+        <width>210</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>PlayerAutoHpRegeneRateInSleep</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_10">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>130</y>
+        <width>210</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>PalCaptureRate</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_53">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>790</y>
+        <width>210</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>bEnableFriendlyFire</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_67">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>910</y>
+        <width>210</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>bEnableAimAssistKeyboard</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_34">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>610</y>
+        <width>210</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>CollectionDropRate</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>10</y>
+        <width>210</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Difficulty</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_27">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>580</y>
+        <width>210</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>BuildObjectDeteriorationDamageRate</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_23">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>370</y>
+        <width>210</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>PlayerAutoHPRegeneRate</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_48">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>700</y>
+        <width>210</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>EnemyDropItemRate</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_60">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>940</y>
+        <width>210</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>DropItemMaxNum</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_6">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>70</y>
+        <width>210</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>NightTimeSpeedRate</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_18">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>250</y>
+        <width>210</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>PlayerDamageRateAttack</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_37">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>520</y>
+        <width>500</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>玩家睡眠时(在帕鲁终端)生命值自然回复速度（范围：0.1-5；默认：1）</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_33">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>550</y>
+        <width>210</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>BuildObjectDamageRate</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="doubleSpinBox_NightTimeSpeedRate">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>70</y>
+        <width>80</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="decimals">
+       <number>6</number>
+      </property>
+      <property name="minimum">
+       <double>0.100000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>5.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>0.100000000000000</double>
+      </property>
+      <property name="value">
+       <double>1.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_25">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>520</y>
+        <width>210</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>PalAutoHpRegeneRateInSleep</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_17">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>250</y>
+        <width>500</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>玩家造成的伤害倍率（范围：0.1-5；默认：1）</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_16">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>220</y>
+        <width>210</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>PalDamageRateDefense</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_39">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>460</y>
+        <width>500</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>帕鲁耐力条下降速度（范围：0.1-5；默认：1）</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_42">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>400</y>
+        <width>500</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>玩家睡眠时生命值自然回复速度（范围：0.1-5；默认：1）</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_13">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>190</y>
+        <width>500</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>帕鲁造成的伤害倍率（范围：0.1-5；默认：1）</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_21">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>310</y>
+        <width>500</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>玩家饱食度下降速度（范围：0.1-5；默认：1）</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_9">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>125</y>
+        <width>500</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>帕鲁抓捕倍率（范围：0.5-2；默认：1）
+  PS：这个参数调整非常敏感请谨慎调整。困难模式为0.8，简单模式为2。</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_30">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>635</y>
+        <width>500</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>采集资源生命倍率（范围：0.5-3；默认：1）
+  PS：敲小帕鲁矿测试，不生效。</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_69">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>1030</y>
+        <width>210</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>BaseCampWorkerMaxNum</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_72">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>1030</y>
+        <width>500</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>据点内工作帕鲁的最大数量（范围：1-20；默认：15）</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_36">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>340</y>
+        <width>500</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>玩家耐力条下降速度（范围：0.1-5；默认：1）</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_4">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>40</y>
+        <width>210</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>DayTimeSpeedRate</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_12">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>160</y>
+        <width>210</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>PalSpawnNumRate</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_20">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>280</y>
+        <width>210</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>PlayerDamageRateDefense</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_38">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>370</y>
+        <width>500</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>玩家生命值自然回复速度（范围：0.1-5；默认：1）</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_62">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>940</y>
+        <width>500</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>世界内掉落物的上限（范围：0-5000；默认：3000）</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_26">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>430</y>
+        <width>500</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>帕鲁饱食度下降速度（范围：0.1-5；默认：1）</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_19">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>280</y>
+        <width>500</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>玩家受到的伤害倍率（范围：0.1-5；默认：1）</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_71">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>1060</y>
+        <width>500</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>掉落物品的最大保留时间（范围：1-5；默认：1）</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_57">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>1000</y>
+        <width>210</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>BaseCampMaxNum</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_50">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>700</y>
+        <width>500</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>敌人掉落倍率（范围：0.5-3；默认：1）</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_46">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>790</y>
+        <width>500</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>是否开启玩家对同公会友军伤害（范围：True/False；默认：False）[推荐用于PVP]</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_64">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>880</y>
+        <width>500</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>是否开启手柄瞄准辅助（范围：True/False；默认：True）</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_52">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>760</y>
+        <width>500</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>是否开启玩家对玩家伤害（范围：True/False；默认：False）[推荐用于PVP]</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_24">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>605</y>
+        <width>500</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>资源采集倍率（范围：0.5-3；默认：1）
+  PS：拿石稿敲小帕鲁矿默认要6下取得1个帕鲁碎片，若调为3则要敲2下。</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_55">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>910</y>
+        <width>500</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>是否开启键鼠瞄准辅助（范围：True/False；默认：False）</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_73">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>1150</y>
+        <width>500</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>公会人数上限（范围：1-100；默认：20）</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_74">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>1240</y>
+        <width>210</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>bIsMultiplay</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_75">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>1120</y>
+        <width>210</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>AutoResetGuildTimeNoOnlinePlayers</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_76">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>1150</y>
+        <width>210</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>GuildPlayerMaxNum</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_77">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>1120</y>
+        <width>500</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>自动重置公会离线玩家的时间（范围：24-168；默认：72）</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_78">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>1210</y>
+        <width>500</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>工作速度倍率（范围：1-5；默认：1）</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_79">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>1090</y>
+        <width>500</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>是否自动重置公会离线玩家（范围：True/False；默认：False）</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_80">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>1180</y>
+        <width>500</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>巨大蛋孵化的时间（范围：0-240；默认72）</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_81">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>1235</y>
+        <width>500</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>是否为多人游戏（范围：True/False；默认：False）
+  PS：未知作用，纯翻译。</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_82">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>1090</y>
+        <width>210</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>bAutoResetGuildNoOnlinePlayers</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_83">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>1180</y>
+        <width>210</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>PalEggDefaultHatchingTime</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_84">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>1210</y>
+        <width>210</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>WorkSpeedRate</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_85">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>1270</y>
+        <width>500</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>是否开启PVP模式（范围：True/False；默认：False）[推荐用于PVP]</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_86">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>1270</y>
+        <width>210</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>bIsPvP</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_87">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>1300</y>
+        <width>500</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>是否可以拾取其他公会死亡惩罚掉落（范围：True/False；默认：False）[推荐用于PVP]</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_88">
+      <property name="geometry">
+       <rect>
+        <x>19</x>
+        <y>1300</y>
+        <width>221</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>bCanPickupOtherGuildDeathPenaltyDrop</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_177">
+      <property name="geometry">
+       <rect>
+        <x>19</x>
+        <y>1330</y>
+        <width>221</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>bEnableNonLoginPenalty</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_178">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>1325</y>
+        <width>500</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>是否启用长期不登录惩罚（范围：True/False；默认：True）
+  PS：未知作用，纯翻译。</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_179">
+      <property name="geometry">
+       <rect>
+        <x>19</x>
+        <y>1360</y>
+        <width>221</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>bEnableFastTravel</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_180">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>1360</y>
+        <width>500</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>是否开启快速旅行（范围：True/False；默认：True）</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_181">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>1385</y>
+        <width>500</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>是否允许创角后选择出生点（范围：True/False；默认：True）
+  PS：若为关则出生在初始台地，死亡后依旧可以选择其他出生点。</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_182">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>1390</y>
+        <width>221</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>bIsStartLocationSelectByMap</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_183">
+      <property name="geometry">
+       <rect>
+        <x>341</x>
+        <y>1420</y>
+        <width>500</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>玩家离线后是否停留在原地不消失（范围：True/False；默认：False）</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_184">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>1420</y>
+        <width>221</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>bExistPlayerAfterLogout</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_186">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>1450</y>
+        <width>221</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>bEnableDefenseOtherGuildPlayer</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_185">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>1450</y>
+        <width>500</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>是否受到其他公会伤害（范围：True/False；默认：False）[推荐用于PVP]</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_187">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>1480</y>
+        <width>221</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>CoopPlayerMaxNum</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_188">
+      <property name="geometry">
+       <rect>
+        <x>340</x>
+        <y>1480</y>
+        <width>500</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>合作玩家人数（范围：1-32；默认：4）</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="button_write">
+      <property name="geometry">
+       <rect>
+        <x>760</x>
+        <y>1520</y>
+        <width>75</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>应用修改</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="button_read">
+      <property name="geometry">
+       <rect>
+        <x>670</x>
+        <y>1520</y>
+        <width>75</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>重新读取</string>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="doubleSpinBox_ExpRate">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>100</y>
+        <width>80</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="decimals">
+       <number>6</number>
+      </property>
+      <property name="minimum">
+       <double>0.100000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>20.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>1.000000000000000</double>
+      </property>
+      <property name="value">
+       <double>1.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="doubleSpinBox_PalCaptureRate">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>130</y>
+        <width>80</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="decimals">
+       <number>6</number>
+      </property>
+      <property name="minimum">
+       <double>0.500000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>2.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>0.100000000000000</double>
+      </property>
+      <property name="value">
+       <double>1.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="doubleSpinBox_PalSpawnNumRate">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>160</y>
+        <width>80</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="decimals">
+       <number>6</number>
+      </property>
+      <property name="minimum">
+       <double>0.500000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>3.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>0.100000000000000</double>
+      </property>
+      <property name="value">
+       <double>1.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="doubleSpinBox_PalDamageRateAttack">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>190</y>
+        <width>80</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="decimals">
+       <number>6</number>
+      </property>
+      <property name="minimum">
+       <double>0.100000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>5.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>0.100000000000000</double>
+      </property>
+      <property name="value">
+       <double>1.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="doubleSpinBox_PalDamageRateDefense">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>220</y>
+        <width>80</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="decimals">
+       <number>6</number>
+      </property>
+      <property name="minimum">
+       <double>0.100000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>5.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>0.100000000000000</double>
+      </property>
+      <property name="value">
+       <double>1.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="doubleSpinBox_PlayerDamageRateAttack">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>250</y>
+        <width>80</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="decimals">
+       <number>6</number>
+      </property>
+      <property name="minimum">
+       <double>0.100000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>5.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>0.100000000000000</double>
+      </property>
+      <property name="value">
+       <double>1.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="doubleSpinBox_PlayerDamageRateDefense">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>280</y>
+        <width>80</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="decimals">
+       <number>6</number>
+      </property>
+      <property name="minimum">
+       <double>0.100000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>5.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>0.100000000000000</double>
+      </property>
+      <property name="value">
+       <double>1.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="doubleSpinBox_PlayerStomachDecreaceRate">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>310</y>
+        <width>80</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="decimals">
+       <number>6</number>
+      </property>
+      <property name="minimum">
+       <double>0.100000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>5.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>0.100000000000000</double>
+      </property>
+      <property name="value">
+       <double>1.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="doubleSpinBox_PlayerStaminaDecreaceRate">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>340</y>
+        <width>80</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="decimals">
+       <number>6</number>
+      </property>
+      <property name="minimum">
+       <double>0.100000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>5.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>0.100000000000000</double>
+      </property>
+      <property name="value">
+       <double>1.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="doubleSpinBox_PlayerAutoHPRegeneRate">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>370</y>
+        <width>80</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="decimals">
+       <number>6</number>
+      </property>
+      <property name="minimum">
+       <double>0.100000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>5.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>0.100000000000000</double>
+      </property>
+      <property name="value">
+       <double>1.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="doubleSpinBox_PlayerAutoHpRegeneRateInSleep">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>400</y>
+        <width>80</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="decimals">
+       <number>6</number>
+      </property>
+      <property name="minimum">
+       <double>0.100000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>5.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>0.100000000000000</double>
+      </property>
+      <property name="value">
+       <double>1.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="doubleSpinBox_PalStomachDecreaceRate">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>430</y>
+        <width>80</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="decimals">
+       <number>6</number>
+      </property>
+      <property name="minimum">
+       <double>0.100000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>5.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>0.100000000000000</double>
+      </property>
+      <property name="value">
+       <double>1.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="doubleSpinBox_PalStaminaDecreaceRate">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>460</y>
+        <width>80</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="decimals">
+       <number>6</number>
+      </property>
+      <property name="minimum">
+       <double>0.100000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>5.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>0.100000000000000</double>
+      </property>
+      <property name="value">
+       <double>1.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="doubleSpinBox_PalAutoHPRegeneRate">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>490</y>
+        <width>80</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="decimals">
+       <number>6</number>
+      </property>
+      <property name="minimum">
+       <double>0.100000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>5.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>0.100000000000000</double>
+      </property>
+      <property name="value">
+       <double>1.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="doubleSpinBox_PalAutoHpRegeneRateInSleep">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>520</y>
+        <width>80</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="decimals">
+       <number>6</number>
+      </property>
+      <property name="minimum">
+       <double>0.100000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>5.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>0.100000000000000</double>
+      </property>
+      <property name="value">
+       <double>1.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="doubleSpinBox_BuildObjectDamageRate">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>550</y>
+        <width>80</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="decimals">
+       <number>6</number>
+      </property>
+      <property name="minimum">
+       <double>0.500000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>3.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>0.100000000000000</double>
+      </property>
+      <property name="value">
+       <double>1.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="doubleSpinBox_BuildObjectDeteriorationDamageRate">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>580</y>
+        <width>80</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="decimals">
+       <number>6</number>
+      </property>
+      <property name="minimum">
+       <double>0.000000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>10.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>0.100000000000000</double>
+      </property>
+      <property name="value">
+       <double>1.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="doubleSpinBox_CollectionDropRate">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>610</y>
+        <width>80</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="decimals">
+       <number>6</number>
+      </property>
+      <property name="minimum">
+       <double>0.500000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>3.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>0.100000000000000</double>
+      </property>
+      <property name="value">
+       <double>1.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="doubleSpinBox_CollectionObjectHpRate">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>640</y>
+        <width>80</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="decimals">
+       <number>6</number>
+      </property>
+      <property name="minimum">
+       <double>0.500000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>3.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>0.100000000000000</double>
+      </property>
+      <property name="value">
+       <double>1.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="doubleSpinBox_CollectionObjectRespawnSpeedRate">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>670</y>
+        <width>80</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="decimals">
+       <number>6</number>
+      </property>
+      <property name="minimum">
+       <double>0.500000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>3.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>0.100000000000000</double>
+      </property>
+      <property name="value">
+       <double>1.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="doubleSpinBox_EnemyDropItemRate">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>700</y>
+        <width>80</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="decimals">
+       <number>6</number>
+      </property>
+      <property name="minimum">
+       <double>0.500000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>3.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>0.100000000000000</double>
+      </property>
+      <property name="value">
+       <double>1.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_bEnablePlayerToPlayerDamage">
+      <property name="geometry">
+       <rect>
+        <x>280</x>
+        <y>760</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_bEnableFriendlyFire">
+      <property name="geometry">
+       <rect>
+        <x>280</x>
+        <y>790</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_bActiveUNKO">
+      <property name="geometry">
+       <rect>
+        <x>280</x>
+        <y>850</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_bEnableAimAssistPad">
+      <property name="geometry">
+       <rect>
+        <x>280</x>
+        <y>880</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_bEnableInvaderEnemy">
+      <property name="geometry">
+       <rect>
+        <x>280</x>
+        <y>820</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_bEnableAimAssistKeyboard">
+      <property name="geometry">
+       <rect>
+        <x>280</x>
+        <y>910</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="doubleSpinBox_DropItemMaxNum">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>940</y>
+        <width>80</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="decimals">
+       <number>0</number>
+      </property>
+      <property name="minimum">
+       <double>0.000000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>5000.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>100.000000000000000</double>
+      </property>
+      <property name="value">
+       <double>3000.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="doubleSpinBox_DropItemMaxNum_UNKO">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>970</y>
+        <width>80</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="decimals">
+       <number>0</number>
+      </property>
+      <property name="minimum">
+       <double>0.000000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>500.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>10.000000000000000</double>
+      </property>
+      <property name="value">
+       <double>100.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="doubleSpinBox_BaseCampMaxNum">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>1000</y>
+        <width>80</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="decimals">
+       <number>0</number>
+      </property>
+      <property name="minimum">
+       <double>1.000000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>256.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>1.000000000000000</double>
+      </property>
+      <property name="value">
+       <double>128.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="doubleSpinBox_BaseCampWorkerMaxNum">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>1030</y>
+        <width>80</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="decimals">
+       <number>0</number>
+      </property>
+      <property name="minimum">
+       <double>1.000000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>20.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>1.000000000000000</double>
+      </property>
+      <property name="value">
+       <double>15.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="doubleSpinBox_DropItemAliveMaxHours">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>1060</y>
+        <width>80</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="decimals">
+       <number>6</number>
+      </property>
+      <property name="minimum">
+       <double>1.000000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>5.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>0.100000000000000</double>
+      </property>
+      <property name="value">
+       <double>1.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_bAutoResetGuildNoOnlinePlayers">
+      <property name="geometry">
+       <rect>
+        <x>280</x>
+        <y>1090</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="doubleSpinBox_AutoResetGuildTimeNoOnlinePlayers">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>1120</y>
+        <width>80</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="decimals">
+       <number>0</number>
+      </property>
+      <property name="minimum">
+       <double>24.000000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>168.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>1.000000000000000</double>
+      </property>
+      <property name="value">
+       <double>72.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="doubleSpinBox_GuildPlayerMaxNum">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>1150</y>
+        <width>80</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="decimals">
+       <number>0</number>
+      </property>
+      <property name="minimum">
+       <double>1.000000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>100.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>1.000000000000000</double>
+      </property>
+      <property name="value">
+       <double>20.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="doubleSpinBox_PalEggDefaultHatchingTime">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>1180</y>
+        <width>80</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="decimals">
+       <number>0</number>
+      </property>
+      <property name="minimum">
+       <double>0.000000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>240.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>1.000000000000000</double>
+      </property>
+      <property name="value">
+       <double>72.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="doubleSpinBox_WorkSpeedRate">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>1210</y>
+        <width>80</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="decimals">
+       <number>6</number>
+      </property>
+      <property name="minimum">
+       <double>1.000000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>5.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>0.100000000000000</double>
+      </property>
+      <property name="value">
+       <double>1.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_bIsPvP">
+      <property name="geometry">
+       <rect>
+        <x>280</x>
+        <y>1270</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_bEnableFastTravel">
+      <property name="geometry">
+       <rect>
+        <x>280</x>
+        <y>1360</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_bCanPickupOtherGuildDeathPenaltyDrop">
+      <property name="geometry">
+       <rect>
+        <x>280</x>
+        <y>1300</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_bIsStartLocationSelectByMap">
+      <property name="geometry">
+       <rect>
+        <x>280</x>
+        <y>1390</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_bEnableNonLoginPenalty">
+      <property name="geometry">
+       <rect>
+        <x>280</x>
+        <y>1330</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_bExistPlayerAfterLogout">
+      <property name="geometry">
+       <rect>
+        <x>280</x>
+        <y>1420</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_bIsMultiplay">
+      <property name="geometry">
+       <rect>
+        <x>280</x>
+        <y>1240</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_bEnableDefenseOtherGuildPlayer">
+      <property name="geometry">
+       <rect>
+        <x>280</x>
+        <y>1450</y>
+        <width>20</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="doubleSpinBox_CoopPlayerMaxNum">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>1480</y>
+        <width>80</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="decimals">
+       <number>0</number>
+      </property>
+      <property name="minimum">
+       <double>1.000000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>32.000000000000000</double>
+      </property>
+      <property name="singleStep">
+       <double>1.000000000000000</double>
+      </property>
+      <property name="value">
+       <double>4.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="comboBox_DeathPenalty">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>730</y>
+        <width>80</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text">
+        <string>None</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Item</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>ItemAndEquipment</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>ALL</string>
+       </property>
+      </item>
+     </widget>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1055</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="defaultUp">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>button_read</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>load_settings()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>697</x>
+     <y>650</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>891</x>
+     <y>23</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>button_write</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>button_write_click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>801</x>
+     <y>653</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>892</x>
+     <y>50</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>load_settings()</slot>
+  <slot>button_write_click()</slot>
+ </slots>
+</ui>

@@ -12,6 +12,7 @@ from PyQt5.QtWidgets import QMainWindow, QMessageBox, QFileDialog, QTableWidgetI
 import psutil
 import pyperclip
 
+from activity import world_settings_activity
 from utils import json_operation, random_password
 from utils.PalRcon.module import PalRcon
 import setting
@@ -30,6 +31,7 @@ class Window(QMainWindow):
         self.last_auto_backup_time = datetime.now()
         self.player_list = []
         self.initUi()
+        self.world_settings_window = world_settings_activity.Window()
 
     def initUi(self):
         loadUi(os.path.join(self.module_path, r"../ui/main.ui"), self)
@@ -116,6 +118,10 @@ class Window(QMainWindow):
                     if self.config["crash_detection_flag"]:
                         self.text_browser_rcon_server_notice("client_error", "检测到服务端崩溃，开始重启 ！")
                         self.button_game_start_click()
+        else:
+            if "palserver_pid" in self.config:
+                if psutil.pid_exists(self.config["palserver_pid"]):
+                    self.server_run_flag = True
 
         if self.server_run_flag:
             self.label_server_status.setText("正在运行")
@@ -159,8 +165,8 @@ class Window(QMainWindow):
                 self.last_auto_backup_time = datetime.now()
 
     def timed_detection_5000(self):
-        self.label_cpu_info.setText(str(psutil.cpu_percent(interval=0)) + "%")
-        self.label_mem_info.setText(str(round(psutil.virtual_memory().used / (1024 * 1024), 2)) + " MB / " + str(round(psutil.virtual_memory().total / (1024 * 1024), 2)) + "MB")
+        self.label_cpu_info.setText(str(psutil.cpu_percent(interval=0)) + " %")
+        self.label_mem_info.setText(str(round(psutil.virtual_memory().used / (1024 * 1024), 2)) + " MB / " + str(round(psutil.virtual_memory().total / (1024 * 1024), 2)) + " MB")
 
         if "palserver_path" in self.config:
             total, used, free = shutil.disk_usage(self.config["palserver_path"])
@@ -649,3 +655,6 @@ class Window(QMainWindow):
             selected_row = selected_items[0].row()
             player_steamid = self.player_list[selected_row][2]
             pyperclip.copy(player_steamid)
+
+    def button_edit_settings_click(self):
+        self.world_settings_window.show()

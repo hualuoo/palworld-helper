@@ -31,8 +31,8 @@ if __name__ == '__main__':
     # 实例化，传参
     app = QApplication(sys.argv)
     # 创建对象
-    login_window = main_activity.Window()
+    main_window = main_activity.Window()
     # 创建窗口
-    login_window.show()
+    main_window.show()
     # 进入程序的主循环，并通过exit函数确保主循环安全结束(该释放资源的一定要释放)
     sys.exit(app.exec_())

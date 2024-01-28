@@ -318,23 +318,29 @@
       <string>全服广播</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="button_countdown_stop_4">
+    <widget class="QPushButton" name="button_edit_settings">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>340</x>
        <y>460</y>
-       <width>241</width>
+       <width>200</width>
        <height>20</height>
       </rect>
      </property>
      <property name="text">
-      <string>修改服务器配置文件 (倍率等)——等待更新</string>
+      <string>修改服务器配置文件 (倍率等)</string>
      </property>
     </widget>
     <widget class="QPushButton" name="button_countdown_stop_5">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
-       <x>580</x>
+       <x>560</x>
        <y>460</y>
        <width>131</width>
        <height>20</height>
@@ -345,6 +351,9 @@
      </property>
     </widget>
     <widget class="QPushButton" name="button_countdown_stop_6">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>710</x>
@@ -364,7 +373,7 @@
       <x>880</x>
       <y>10</y>
       <width>200</width>
-      <height>380</height>
+      <height>401</height>
      </rect>
     </property>
     <property name="title">
@@ -452,7 +461,7 @@
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>224</y>
+       <y>254</y>
        <width>150</width>
        <height>31</height>
       </rect>
@@ -474,7 +483,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>220</y>
+       <y>250</y>
        <width>170</width>
        <height>20</height>
       </rect>
@@ -487,7 +496,7 @@
      <property name="geometry">
       <rect>
        <x>150</x>
-       <y>220</y>
+       <y>250</y>
        <width>30</width>
        <height>20</height>
       </rect>
@@ -500,9 +509,9 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>270</y>
+       <y>290</y>
        <width>180</width>
-       <height>40</height>
+       <height>41</height>
       </rect>
      </property>
      <property name="text">
@@ -522,7 +531,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>320</y>
+       <y>340</y>
        <width>75</width>
        <height>20</height>
       </rect>
@@ -535,7 +544,7 @@
      <property name="geometry">
       <rect>
        <x>110</x>
-       <y>320</y>
+       <y>340</y>
        <width>75</width>
        <height>20</height>
       </rect>
@@ -548,7 +557,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>350</y>
+       <y>370</y>
        <width>75</width>
        <height>20</height>
       </rect>
@@ -561,7 +570,7 @@
      <property name="geometry">
       <rect>
        <x>110</x>
-       <y>350</y>
+       <y>370</y>
        <width>75</width>
        <height>20</height>
       </rect>
@@ -631,12 +640,44 @@
       <bool>true</bool>
      </property>
     </widget>
+    <widget class="QLineEdit" name="line_edit_auto_restart_mem_limit">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>220</y>
+       <width>21</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="check_box_auto_restart_mem">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>220</y>
+       <width>170</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>是否开启内存超     % 重启</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QGroupBox" name="groupBox_4">
     <property name="geometry">
      <rect>
       <x>880</x>
-      <y>400</y>
+      <y>420</y>
       <width>200</width>
       <height>170</height>
      </rect>
@@ -701,6 +742,9 @@ p, li { white-space: pre-wrap; }
      </property>
     </widget>
     <widget class="QPushButton" name="button_countdown_stop_2">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>9</x>
@@ -839,7 +883,7 @@ p, li { white-space: pre-wrap; }
       </rect>
      </property>
      <property name="text">
-      <string>备份目标文件夹路径：</string>
+      <string>将存档备份至 路径：</string>
      </property>
     </widget>
     <widget class="QLineEdit" name="line_edit_backup_path">
@@ -901,25 +945,12 @@ p, li { white-space: pre-wrap; }
      </property>
     </widget>
    </widget>
-   <widget class="QGroupBox" name="groupBox_7">
-    <property name="geometry">
-     <rect>
-      <x>1150</x>
-      <y>580</y>
-      <width>290</width>
-      <height>130</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string>等待更新</string>
-    </property>
-   </widget>
    <widget class="QGroupBox" name="groupBox_8">
     <property name="geometry">
      <rect>
-      <x>880</x>
+      <x>1090</x>
       <y>580</y>
-      <width>261</width>
+      <width>351</width>
       <height>130</height>
      </rect>
     </property>
@@ -1208,7 +1239,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>941</x>
-     <y>368</y>
+     <y>389</y>
     </hint>
     <hint type="destinationlabel">
      <x>1431</x>
@@ -1224,7 +1255,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>1035</x>
-     <y>365</y>
+     <y>386</y>
     </hint>
     <hint type="destinationlabel">
      <x>1431</x>
@@ -1240,7 +1271,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>932</x>
-     <y>391</y>
+     <y>412</y>
     </hint>
     <hint type="destinationlabel">
      <x>1431</x>
@@ -1256,7 +1287,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>1020</x>
-     <y>394</y>
+     <y>415</y>
     </hint>
     <hint type="destinationlabel">
      <x>1431</x>
@@ -1384,7 +1415,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>903</x>
-     <y>260</y>
+     <y>281</y>
     </hint>
     <hint type="destinationlabel">
      <x>1429</x>
@@ -1400,7 +1431,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>1051</x>
-     <y>268</y>
+     <y>289</y>
     </hint>
     <hint type="destinationlabel">
      <x>1429</x>
@@ -1488,6 +1519,22 @@ p, li { white-space: pre-wrap; }
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>button_edit_settings</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>button_edit_settings_click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>481</x>
+     <y>619</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1428</x>
+     <y>469</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>button_select_file_click()</slot>
@@ -1513,5 +1560,6 @@ p, li { white-space: pre-wrap; }
   <slot>line_edit_auto_backup_time_limit_textchange()</slot>
   <slot>check_box_auto_backup_click()</slot>
   <slot>button_refresh_player_list_click()</slot>
+  <slot>button_edit_settings_click()</slot>
  </slots>
 </ui>
