@@ -33,3 +33,14 @@
 
 ## :hammer_and_wrench: BUG问题相关
 由于该工具为边打CS边搓出来的小工具，为方便自身开服使用，仅花了5小时不到，未考虑优化等因素，如遇BUG，欢迎提交issues并注明出现错误的情景方便复现。
+#### 报错查看建议使用如下源码执行的方式：
+```shell
+# 下载Python并安装：https://www.python.org/
+# Git Clone或下载代码文件，以下以C:\Users\Administrator\Desktop\palworld-helper为例
+# 打开cmd，cd进入代码路径
+cd C:\Users\Administrator\Desktop\palworld-helper
+# 安装PIP库依赖
+pip install -r "C:\Users\Administrator\Desktop\palworld-helper\requirements.txt"
+# 以源码方式运行
+python "C:\Users\Administrator\Desktop\palworld-helper\main.py"
+```
