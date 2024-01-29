@@ -34,7 +34,7 @@ class Window(QMainWindow):
                 self.option_settings_dict = dict(item.strip().split('=') for item in option_settings.split(','))
                 self.load_settings()
             else:
-                QMessageBox.critical(self, "错误", "服务端路径下的 /Pal/Saved/Config/WindowsServer/PalWorldSettings.ini 配置文件不存在，请检查服务端！")
+                QMessageBox.critical(self, "错误", "服务端路径下的 /Pal/Saved/Config/WindowsServer/PalWorldSettings.ini 配置文件不存在，请手动运行一次PalServer.exe，或检查服务端完整性！")
                 self.close()
 
     def load_settings(self):

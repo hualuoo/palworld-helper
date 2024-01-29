@@ -242,6 +242,10 @@ class Window(QMainWindow):
             if os.path.isfile(self.config["palserver_path"]):
                 self.palserver_settings_path = os.path.abspath(os.path.join(self.config["palserver_path"], r"../Pal/Saved/Config/WindowsServer/PalWorldSettings.ini"))
                 if os.path.isfile(self.palserver_settings_path):
+                    if os.stat(self.palserver_settings_path).st_size < 10:
+                        self.text_browser_rcon_server_notice("client_success", "检测到 服务端路径下的 /Pal/Saved/Config/WindowsServer/PalWorldSettings.ini 配置文件大小不正确，正在重新初始化。")
+                        with open(self.palserver_settings_path, 'w', encoding='utf-8') as config_file:
+                            config_file.write('[/Script/Pal.PalGameWorldSettings]\nOptionSettings=(Difficulty=None,DayTimeSpeedRate=1.000000,NightTimeSpeedRate=1.000000,ExpRate=1.000000,PalCaptureRate=1.000000,PalSpawnNumRate=1.000000,PalDamageRateAttack=1.000000,PalDamageRateDefense=1.000000,PlayerDamageRateAttack=1.000000,PlayerDamageRateDefense=1.000000,PlayerStomachDecreaceRate=1.000000,PlayerStaminaDecreaceRate=1.000000,PlayerAutoHPRegeneRate=1.000000,PlayerAutoHpRegeneRateInSleep=1.000000,PalStomachDecreaceRate=1.000000,PalStaminaDecreaceRate=1.000000,PalAutoHPRegeneRate=1.000000,PalAutoHpRegeneRateInSleep=1.000000,BuildObjectDamageRate=1.000000,BuildObjectDeteriorationDamageRate=1.000000,CollectionDropRate=1.000000,CollectionObjectHpRate=1.000000,CollectionObjectRespawnSpeedRate=1.000000,EnemyDropItemRate=1.000000,DeathPenalty=All,bEnablePlayerToPlayerDamage=False,bEnableFriendlyFire=False,bEnableInvaderEnemy=True,bActiveUNKO=False,bEnableAimAssistPad=True,bEnableAimAssistKeyboard=False,DropItemMaxNum=3000,DropItemMaxNum_UNKO=100,BaseCampMaxNum=128,BaseCampWorkerMaxNum=15,DropItemAliveMaxHours=1.000000,bAutoResetGuildNoOnlinePlayers=False,AutoResetGuildTimeNoOnlinePlayers=72.000000,GuildPlayerMaxNum=20,PalEggDefaultHatchingTime=72.000000,WorkSpeedRate=1.000000,bIsMultiplay=False,bIsPvP=False,bCanPickupOtherGuildDeathPenaltyDrop=False,bEnableNonLoginPenalty=True,bEnableFastTravel=True,bIsStartLocationSelectByMap=True,bExistPlayerAfterLogout=False,bEnableDefenseOtherGuildPlayer=False,CoopPlayerMaxNum=4,ServerPlayerMaxNum=32,ServerName="Default Palworld Server",ServerDescription="",AdminPassword="",ServerPassword="",PublicPort=8211,PublicIP="",RCONEnabled=False,RCONPort=25575,Region="",bUseAuth=True,BanListURL="https://api.palworldgame.com/api/banlist.txt")\n')
                     self.line_edit_palserver_path.setText(self.config["palserver_path"])
                     self.button_open_settings_dir.setEnabled(True)
                     self.button_open_rcon_settings_file.setEnabled(True)
@@ -257,7 +261,7 @@ class Window(QMainWindow):
                     self.line_edit_palserver_path.setText("")
                     self.config.pop("palserver_path")
                     self.save_config_json()
-                    self.text_browser_rcon_server_notice("client_error", "服务端路径下的 /Pal/Saved/Config/WindowsServer/PalWorldSettings.ini 配置文件不存在，请检查服务端！")
+                    self.text_browser_rcon_server_notice("client_error", "服务端路径下的 /Pal/Saved/Config/WindowsServer/PalWorldSettings.ini 配置文件不存在，请手动运行一次PalServer.exe，或检查服务端完整性！")
                     return False
             else:
                 self.line_edit_palserver_path.setText("")
