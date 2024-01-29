@@ -33,7 +33,7 @@ class PalRcon:
             try:
                 packet = struct.pack('<3i', 10 + len(self.password), 0, 3) + self.password.encode('utf-8') + b'\x00\x00'
                 self.socket.send(packet)
-                response = self.socket.recv(4096)
+                response = self.socket.recv(65536)
                 self.handle_response(response)
                 return True, "RCON服务器登录成功"
             except (socket.timeout, ConnectionAbortedError) as e:
@@ -59,7 +59,7 @@ class PalRcon:
         try:
             packet = struct.pack('<3i', 10 + len(cmd), 0, 2) + cmd.encode('utf-8') + b'\x00\x00'
             self.socket.send(packet)
-            response = self.socket.recv(4096)
+            response = self.socket.recv(65536)
             return self.handle_response_with_log(response)
         except (socket.timeout, ConnectionAbortedError) as e:
             print(f"Error during command execution: {e}")

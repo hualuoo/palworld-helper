@@ -30,8 +30,10 @@ class Window(QMainWindow):
         self.server_run_time = datetime.now()
         self.last_auto_backup_time = datetime.now()
         self.player_list = []
+        self.palserver_settings_path = None
+        self.config_parser = configparser.ConfigParser()
+        self.option_settings_dict = {}
         self.initUi()
-        self.world_settings_window = world_settings_activity.Window()
 
     def initUi(self):
         loadUi(os.path.join(self.module_path, r"../ui/main.ui"), self)
@@ -45,18 +47,7 @@ class Window(QMainWindow):
         self.table_widget_player_list.setColumnWidth(1, 100)
         self.table_widget_player_list.setColumnWidth(2, 130)
 
-        if "palserver_path" in self.config:
-            if os.path.isfile(self.config["palserver_path"]):
-                self.line_edit_palserver_path.setText(self.config["palserver_path"])
-                self.button_open_settings_dir.setEnabled(True)
-                self.button_open_rcon_settings_file.setEnabled(True)
-                self.button_get_rcon_config.setEnabled(True)
-                self.button_automatic_rcon.setEnabled(True)
-            else:
-                self.line_edit_palserver_path.setText("")
-                self.config.pop("palserver_path")
-                self.save_config_json()
-                self.text_browser_rcon_server_notice("client_error", "检测到 PalServer.exe 文件不存在，请重新选择！")
+        self.check_palserver_path()
 
         if "game_port" in self.config:
             self.line_edit_game_port.setText(str(self.config["game_port"]))
@@ -71,11 +62,6 @@ class Window(QMainWindow):
             self.line_edit_rcon_port.setText(str(self.config["rcon_port"]))
         if "rcon_password" in self.config:
             self.line_edit_rcon_password.setText(self.config["rcon_password"])
-        if "backup_dir_path" in self.config:
-            if os.path.isdir(self.config["backup_dir_path"]):
-                self.line_edit_backup_path.setText(self.config["backup_dir_path"])
-                self.check_box_auto_backup.setEnabled(True)
-                self.line_edit_auto_backup_time_limit.setEnabled(True)
 
         if "crash_detection_flag" in self.config:
             self.check_box_crash_detection.setChecked(self.config["crash_detection_flag"])
@@ -97,11 +83,14 @@ class Window(QMainWindow):
         if "auto_backup_time_limit" in self.config:
             self.line_edit_auto_backup_time_limit.setText(str(self.config["auto_backup_time_limit"]))
         if "backup_dir_path" in self.config:
-            self.line_edit_backup_path.setText(self.config["backup_dir_path"])
-            if "auto_backup_flag" in self.config:
-                self.check_box_auto_backup.setChecked(self.config["auto_backup_flag"])
-                if self.config["auto_backup_flag"]:
-                    self.check_box_auto_backup_click(True)
+            if os.path.isdir(self.config["backup_dir_path"]):
+                self.line_edit_backup_path.setText(self.config["backup_dir_path"])
+                self.check_box_auto_backup.setEnabled(True)
+                self.line_edit_auto_backup_time_limit.setEnabled(True)
+                if "auto_backup_flag" in self.config:
+                    self.check_box_auto_backup.setChecked(self.config["auto_backup_flag"])
+                    if self.config["auto_backup_flag"]:
+                        self.check_box_auto_backup_click(True)
 
         self.timed_detection_timer_1000 = QTimer(self)
         self.timed_detection_timer_1000.timeout.connect(self.timed_detection_1000)
@@ -133,6 +122,10 @@ class Window(QMainWindow):
         self.button_game_stop.setEnabled(self.server_run_flag)
         self.button_game_restart.setEnabled(self.server_run_flag)
         self.button_game_kill.setEnabled(self.server_run_flag)
+        self.text_edit_server_name.setEnabled(not self.server_run_flag)
+        self.text_edit_server_description.setEnabled(not self.server_run_flag)
+        self.text_edit_server_description.setEnabled(not self.server_run_flag)
+        self.button_edit_server_name.setEnabled(not self.server_run_flag)
 
         if self.rcon_connect_flag:
             flag, message = self.pal_rcon.check_connect()
@@ -241,44 +234,51 @@ class Window(QMainWindow):
     def save_config_json(self):
         json_operation.save_json(self.config_path, self.config)
 
-    def check_settings_file(self):
-        palserver_settings_path = os.path.join(self.config["palserver_path"], r"../Pal/Saved/Config/WindowsServer/PalWorldSettings.ini")
-        if os.path.isfile(palserver_settings_path):
-            self.line_edit_palserver_path.setText(self.config["palserver_path"])
-            self.button_open_settings_dir.setEnabled(True)
-            self.button_open_rcon_settings_file.setEnabled(True)
-            self.button_get_rcon_config.setEnabled(True)
-            self.button_automatic_rcon.setEnabled(True)
+    def check_palserver_path(self):
+        if "palserver_path" in self.config:
+            if os.path.isfile(self.config["palserver_path"]):
+                self.palserver_settings_path = os.path.abspath(os.path.join(self.config["palserver_path"], r"../Pal/Saved/Config/WindowsServer/PalWorldSettings.ini"))
+                if os.path.isfile(self.palserver_settings_path):
+                    self.line_edit_palserver_path.setText(self.config["palserver_path"])
+                    self.button_open_settings_dir.setEnabled(True)
+                    self.button_open_rcon_settings_file.setEnabled(True)
+                    self.button_get_rcon_config.setEnabled(True)
+                    self.button_automatic_rcon.setEnabled(True)
+                    self.config_parser.read(self.palserver_settings_path, encoding="utf-8")
+                    option_settings = self.config_parser['/Script/Pal.PalGameWorldSettings']['OptionSettings']
+                    self.option_settings_dict = dict(item.strip().split('=') for item in option_settings.split(','))
+                    self.text_edit_server_name.setText(self.option_settings_dict["ServerName"].replace("\"", ""))
+                    self.text_edit_server_description.setText(self.option_settings_dict["ServerDescription"].replace("\"", ""))
+                    return True
+                else:
+                    self.line_edit_palserver_path.setText("")
+                    self.config.pop("palserver_path")
+                    self.save_config_json()
+                    self.text_browser_rcon_server_notice("client_error", "服务端路径下的 /Pal/Saved/Config/WindowsServer/PalWorldSettings.ini 配置文件不存在，请检查服务端！")
+                    return False
+            else:
+                self.line_edit_palserver_path.setText("")
+                self.config.pop("palserver_path")
+                self.save_config_json()
+                self.text_browser_rcon_server_notice("client_error", "检测到 PalServer.exe 文件不存在，请重新选择！")
+                return False
         else:
-            self.line_edit_palserver_path.setText("")
-            self.button_open_settings_dir.setEnabled(False)
-            self.button_open_rcon_settings_file.setEnabled(False)
-            self.button_get_rcon_config.setEnabled(False)
-            self.button_automatic_rcon.setEnabled(False)
-            self.config.pop("palserver_path")
-            self.text_browser_rcon_server_notice("client_error", "服务端路径下的 /Pal/Saved/Config/WindowsServer/PalWorldSettings.ini 配置文件不存在，请检查服务端！")
-        self.save_config_json()
-        return os.path.isfile(palserver_settings_path)
+            return False
 
     def button_select_file_click(self):
         qfile_dialog = QFileDialog.getOpenFileName(self, "选择文件", "/", "PalServer (PalServer.exe)")
         self.config["palserver_path"] = qfile_dialog[0]
-        self.check_settings_file()
+        self.text_browser_rcon_server_notice("client_success", "已获取PalServer.exe路径：" + qfile_dialog[0])
+        self.check_palserver_path()
 
     def button_open_settings_dir_click(self):
-        if self.check_settings_file():
-            palserver_settings_path = os.path.join(self.config["palserver_path"], r"../Pal/Saved/Config/WindowsServer/PalWorldSettings.ini")
-        else:
-            return
-        os.system("explorer /select,\"" + str(os.path.abspath(palserver_settings_path)) + "\"")
+        os.system("explorer /select,\"" + str(os.path.abspath(self.palserver_settings_path)) + "\"")
+        self.text_browser_rcon_server_notice("client_success", "已打开 配置文件夹 目录，请修改RCON相关字段")
 
     def button_open_rcon_settings_file_click(self):
-        if self.check_settings_file():
-            palserver_settings_path = os.path.join(self.config["palserver_path"], r"../Pal/Saved/Config/WindowsServer/PalWorldSettings.ini")
-        else:
-            return
         try:
-            subprocess.run(["notepad.exe", palserver_settings_path], check=True)
+            subprocess.run(["notepad.exe", self.palserver_settings_path], check=True)
+            self.text_browser_rcon_server_notice("client_success", "已通过记事本打开 配置文件，请修改RCON相关字段")
         except subprocess.CalledProcessError as e:
             self.text_browser_rcon_server_notice("client_error", "无法打开 RCON 配置文件！")
             return
@@ -288,42 +288,28 @@ class Window(QMainWindow):
             return
 
     def button_get_rcon_config_click(self):
-        if self.check_settings_file():
-            palserver_settings_path = os.path.join(self.config["palserver_path"], r"../Pal/Saved/Config/WindowsServer/PalWorldSettings.ini")
-        else:
-            return
-        config = configparser.ConfigParser()
-        config.read(palserver_settings_path)
-        option_settings = config['/Script/Pal.PalGameWorldSettings']['OptionSettings']
-        option_settings_dict = dict(item.strip().split('=') for item in option_settings.split(','))
-        if option_settings_dict['RCONEnabled'] is False:
+        if self.option_settings_dict['RCONEnabled'] is False:
             self.text_browser_rcon_server_notice("client_error", "配置文件中 RCONEnabled 未启用，请修改为 True！")
             QMessageBox.critical(self, "错误", "配置文件中 RCONEnabled 未启用，请修改为 True！")
+            return
         self.config["rcon_addr"] = "127.0.0.1"
-        self.config["rcon_port"] = int(option_settings_dict["RCONPort"])
-        self.config["rcon_password"] = option_settings_dict["AdminPassword"].replace("\"", "")
+        self.config["rcon_port"] = int(self.option_settings_dict["RCONPort"])
+        self.config["rcon_password"] = self.option_settings_dict["AdminPassword"].replace("\"", "")
         self.save_config_json()
         self.line_edit_rcon_addr.setText("127.0.0.1")
-        self.line_edit_rcon_port.setText(str(option_settings_dict["RCONPort"]))
-        self.line_edit_rcon_password.setText(option_settings_dict["AdminPassword"].replace("\"", ""))
+        self.line_edit_rcon_port.setText(str(self.option_settings_dict["RCONPort"]))
+        self.line_edit_rcon_password.setText(self.option_settings_dict["AdminPassword"].replace("\"", ""))
+        self.text_browser_rcon_server_notice("client_success", "已获取配置文件中的 RCON 连接信息")
 
     def button_automatic_rcon_click(self):
-        if self.check_settings_file():
-            palserver_settings_path = os.path.join(self.config["palserver_path"], r"../Pal/Saved/Config/WindowsServer/PalWorldSettings.ini")
-        else:
-            return
-        config = configparser.ConfigParser()
-        config.read(palserver_settings_path)
-        option_settings = config['/Script/Pal.PalGameWorldSettings']['OptionSettings']
-        option_settings_dict = dict(item.strip().split('=') for item in option_settings.split(','))
-        option_settings_dict['RCONEnabled'] = True
-        option_settings_dict['RCONPort'] = 25575
+        self.option_settings_dict['RCONEnabled'] = True
+        self.option_settings_dict['RCONPort'] = 25575
         admin_password = random_password.random_string()
-        option_settings_dict['AdminPassword'] = "\"" + admin_password + "\""
-        new_option_settings = ','.join(f"{key}={value}" for key, value in option_settings_dict.items())
-        config['/Script/Pal.PalGameWorldSettings']['OptionSettings'] = new_option_settings
-        with open(palserver_settings_path, 'w') as config_file:
-            config.write(config_file)
+        self.option_settings_dict['AdminPassword'] = "\"" + admin_password + "\""
+        new_option_settings = ','.join(f"{key}={value}" for key, value in self.option_settings_dict.items())
+        self.config_parser['/Script/Pal.PalGameWorldSettings']['OptionSettings'] = new_option_settings
+        with open(self.palserver_settings_path, 'w', encoding='utf-8') as config_file:
+            self.config_parser.write(config_file)
         self.config["rcon_addr"] = "127.0.0.1"
         self.config["rcon_port"] = 25575
         self.config["rcon_password"] = admin_password
@@ -331,6 +317,7 @@ class Window(QMainWindow):
         self.line_edit_rcon_addr.setText(self.config["rcon_addr"])
         self.line_edit_rcon_port.setText(str(self.config["rcon_port"]))
         self.line_edit_rcon_password.setText(self.config["rcon_password"])
+        self.text_browser_rcon_server_notice("client_success", "已自动配置 RCON 连接信息，已生成随机密码：" + admin_password)
 
     def line_edit_rcon_textchange(self):
         rcon_addr = self.line_edit_rcon_addr.text()
@@ -374,8 +361,6 @@ class Window(QMainWindow):
         rcon_result = self.pal_rcon.command("info")
         server_version = rcon_result[rcon_result.index("[")+1:rcon_result.index("]")]
         self.label_server_version.setText(server_version)
-        server_name = rcon_result[rcon_result.index("]")+2:]
-        self.text_edit_server_name.setText(server_name)
 
     def button_game_start_click(self):
         if "palserver_path" not in self.config:
@@ -474,7 +459,7 @@ class Window(QMainWindow):
             return
         self.text_browser_rcon_server_notice("client_command", command.replace("\n", ""))
         rcon_result = self.pal_rcon.command(command)
-        self.text_browser_rcon_server_notice("server_success", rcon_result[:-1])
+        self.text_browser_rcon_server_notice("server_success", rcon_result)
         self.line_edit_command.setText("")
 
     def show_player_list_menu(self, position):
@@ -628,7 +613,7 @@ class Window(QMainWindow):
             command = "KickPlayer " + player_uid
             self.text_browser_rcon_server_notice("client_command", command)
             rcon_result = self.pal_rcon.command(command)
-            self.text_browser_rcon_server_notice("server_success", rcon_result[:-1])
+            self.text_browser_rcon_server_notice("server_success", rcon_result)
         self.get_server_info()
 
     def ban_player(self):
@@ -639,7 +624,7 @@ class Window(QMainWindow):
             command = "BanPlayer " + player_uid
             self.text_browser_rcon_server_notice("client_command", command)
             rcon_result = self.pal_rcon.command(command)
-            self.text_browser_rcon_server_notice("server_success", rcon_result[:-1])
+            self.text_browser_rcon_server_notice("server_success", rcon_result)
         self.get_server_info()
 
     def copy_uid(self):
@@ -657,4 +642,14 @@ class Window(QMainWindow):
             pyperclip.copy(player_steamid)
 
     def button_edit_settings_click(self):
+        self.world_settings_window = world_settings_activity.Window()
         self.world_settings_window.show()
+
+    def button_edit_server_name_click(self):
+        self.option_settings_dict["ServerName"] = "\"" + self.text_edit_server_name.toPlainText().replace("\n", "") + "\""
+        self.option_settings_dict["ServerDescription"] = "\"" + self.text_edit_server_description.toPlainText().replace("\n", "") + "\""
+        new_option_settings = ','.join(f"{key}={value}" for key, value in self.option_settings_dict.items())
+        self.config_parser['/Script/Pal.PalGameWorldSettings']['OptionSettings'] = new_option_settings
+        with open(self.palserver_settings_path, 'w', encoding='utf-8') as config_file:
+            self.config_parser.write(config_file)
+        self.text_browser_rcon_server_notice("client_success", "服务器名称或服务器描述已修改成功，现可启动服务器查看。")

@@ -29,7 +29,7 @@ class Window(QMainWindow):
             self.palserver_settings_path = os.path.join(self.config["palserver_path"], r"../Pal/Saved/Config/WindowsServer/PalWorldSettings.ini")
             if os.path.isfile(self.palserver_settings_path):
                 config = configparser.ConfigParser()
-                config.read(self.palserver_settings_path)
+                config.read(self.palserver_settings_path, encoding="utf-8")
                 option_settings = config['/Script/Pal.PalGameWorldSettings']['OptionSettings']
                 self.option_settings_dict = dict(item.strip().split('=') for item in option_settings.split(','))
                 self.load_settings()
@@ -189,9 +189,9 @@ class Window(QMainWindow):
 
         new_option_settings = ','.join(f"{key}={value}" for key, value in self.option_settings_dict.items())
         config = configparser.ConfigParser()
-        config.read(self.palserver_settings_path)
+        config.read(self.palserver_settings_path, encoding="utf-8")
         config['/Script/Pal.PalGameWorldSettings']['OptionSettings'] = new_option_settings
-        with open(self.palserver_settings_path, 'w') as config_file:
+        with open(self.palserver_settings_path, 'w', encoding='utf-8') as config_file:
             config.write(config_file)
 
         QMessageBox.information(self, "成功", "服务器配置文件已修改！")

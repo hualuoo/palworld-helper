@@ -10,10 +10,10 @@
     <img src="https://img.shields.io/badge/Language-Python-blue?style=flat-square"/>
   </a>
   <a href="https://github.com/hualuoo/palworld-helper/releases">
-    <img src="https://img.shields.io/badge/Release-V1.0.7-blue?style=flat-square"/>
+    <img src="https://img.shields.io/badge/Release-V1.0.8-blue?style=flat-square"/>
   </a>
 </p>
-<h4 align="center">3小时用PyQt搓出来的小工具，交流Q群：209726238</h4>
+<h4 align="center">4小时用PyQt搓出来的小工具，交流Q群：209726238</h4>
 
 ![image](https://raw.githubusercontent.com/hualuoo/palworld_helper/main/images/img1.png)
 
@@ -32,4 +32,4 @@
 * 🌈 ... ...
 
 ## :hammer_and_wrench: BUG问题相关
-由于该工具为边打CS边搓出来的小工具，为方便自身开服使用，仅花了4小时不到，未考虑优化等因素，如遇BUG，欢迎提交issues并注明出现错误的情景方便复现。
+由于该工具为边打CS边搓出来的小工具，为方便自身开服使用，仅花了5小时不到，未考虑优化等因素，如遇BUG，欢迎提交issues并注明出现错误的情景方便复现。
