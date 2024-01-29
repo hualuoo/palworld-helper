@@ -91,6 +91,9 @@ class Window(QMainWindow):
                     self.check_box_auto_backup.setChecked(self.config["auto_backup_flag"])
                     if self.config["auto_backup_flag"]:
                         self.check_box_auto_backup_click(True)
+            else:
+                self.config.pop("backup_dir_path")
+                self.save_config_json()
 
         self.timed_detection_timer_1000 = QTimer(self)
         self.timed_detection_timer_1000.timeout.connect(self.timed_detection_1000)
@@ -389,18 +392,16 @@ class Window(QMainWindow):
             self.text_browser_rcon_server_notice("client_error", "游戏 人数上限需在2~128范围，请重新输入！")
             return
 
+        command = self.config["palserver_path"] + " -port=" + game_port + " -players=" + game_player_limit + " -publicip 0.0.0.0 -publicport " + game_publicport + " -EpicAPP=PalServer"
+        process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False)
         self.config["game_port"] = int(game_port)
         self.config["game_publicport"] = int(game_publicport)
         self.config["game_player_limit"] = int(game_player_limit)
-        self.save_config_json()
-
-        command = self.config["palserver_path"] + " -port=" + game_port + " -players=" + game_player_limit + " -publicip 0.0.0.0 -publicport " + game_publicport + " -EpicAPP=PalServer"
-        process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False)
         self.config["palserver_pid"] = process.pid
+        self.save_config_json()
         self.text_browser_rcon_server_notice("client_success", "PalServer 服务器已启动，获取到进程PID：" + str(process.pid))
         self.server_run_flag = True
         self.server_run_time = datetime.now()
-        self.save_config_json()
 
     def button_game_stop_click(self):
         if self.rcon_connect_flag is False:

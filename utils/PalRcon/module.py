@@ -34,7 +34,8 @@ class PalRcon:
                 packet = struct.pack('<3i', 10 + len(self.password), 0, 3) + self.password.encode('utf-8') + b'\x00\x00'
                 self.socket.send(packet)
                 response = self.socket.recv(65536)
-                self.handle_response(response)
+                if self.handle_response(response) == "0a000000ffffffff020000000000":
+                    return False, "RCON服务器密码错误，请检查密码是否设置正确。"
                 return True, "RCON服务器登录成功"
             except (socket.timeout, ConnectionAbortedError) as e:
                 return False, "RCON服务器登录失败：" + str(e) + "。"
@@ -76,6 +77,8 @@ class PalRcon:
             except UnicodeDecodeError:
                 print("Unable to decode response as UTF-8, printing hexadecimal representation:")
                 print(response.hex())
+                if response.hex() == "0a000000ffffffff020000000000":
+                    return "0a000000ffffffff020000000000"
 
     def handle_response_with_log(self, response):
         """
