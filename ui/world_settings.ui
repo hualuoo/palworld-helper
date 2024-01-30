@@ -2613,6 +2613,19 @@
        </property>
       </item>
      </widget>
+     <widget class="QPushButton" name="button_default">
+      <property name="geometry">
+       <rect>
+        <x>554</x>
+        <y>1520</y>
+        <width>100</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>恢复默认配置</string>
+      </property>
+     </widget>
     </widget>
    </widget>
   </widget>
@@ -2665,9 +2678,26 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>button_default</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>button_default_click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>624</x>
+     <y>651</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>891</x>
+     <y>77</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>load_settings()</slot>
   <slot>button_write_click()</slot>
+  <slot>button_default_click()</slot>
  </slots>
 </ui>

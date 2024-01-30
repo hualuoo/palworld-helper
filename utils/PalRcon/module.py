@@ -1,102 +1,42 @@
-import socket
-import struct
-import re
+import rcon
+from rcon.source.proto import Packet
+from rcon.source import Client
+
+
+class PalClient(Client):
+    def run(self, command: str, *args: str, encoding: str = "utf-8") -> str:
+        """Run a command."""
+        request = Packet.make_command(command, *args, encoding=encoding)
+        response = self.communicate(request)
+        return response.payload.decode(encoding)
 
 
 class PalRcon:
-    def __init__(self, host, port, password):
-        self.host = host
-        self.port = port
-        self.password = password
-        self.socket = None
+    def __init__(self, rcon_addr, rcon_port, rcon_password):
+        self.rcon_addr = rcon_addr
+        self.rcon_port = rcon_port
+        self.rcon_password = rcon_password
 
-    def __exit__(self, exc_type, exc_value, traceback):
-        self.close()
-
-    def connect(self):
-        """
-        Establishes a TCP connection to the RCON server.
-        """
-        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.socket.settimeout(5)  # Set timeout to 5 seconds
+    def send_command(self, command):
         try:
-            self.socket.connect((self.host, self.port))
-            return True, "RCON服务器连接连接成功。"
-        except ConnectionRefusedError:
-            return False, "无法访问服务器，连接被拒绝。"
+            with PalClient(host=self.rcon_addr,
+                           port=self.rcon_port,
+                           passwd=self.rcon_password,
+                           timeout=1) as pal_client:
+                response = pal_client.run(command)
+            return True, response
+        except rcon.exceptions.WrongPassword:
+            return False, "RCON 密码错误，请检查密码是否正确"
+        except rcon.exceptions.SessionTimeout:
+            return False, "会话超时，请检查服务端是否正常开启"
+        except rcon.exceptions.EmptyResponse:
+            return False, "回复为空"
+        except rcon.exceptions.UserAbort:
+            return False, "用户中断"
+        except TimeoutError:
+            return False, "连接超时，请检查服务端是否正常开启"
+        except ConnectionResetError:
+            return False, "远程主机强迫关闭了一个现有的连接，请重连RCON"
+        except:
+            return False, "未知错误，请联系开发人员"
 
-    def login(self):
-        """
-        Performs login/authentication with the RCON server using the provided password.
-        """
-        if self.socket:
-            try:
-                packet = struct.pack('<3i', 10 + len(self.password), 0, 3) + self.password.encode('utf-8') + b'\x00\x00'
-                self.socket.send(packet)
-                response = self.socket.recv(65536)
-                if self.handle_response(response) == "0a000000ffffffff020000000000":
-                    return False, "RCON服务器密码错误，请检查密码是否设置正确。"
-                return True, "RCON服务器登录成功"
-            except (socket.timeout, ConnectionAbortedError) as e:
-                return False, "RCON服务器登录失败：" + str(e) + "。"
-
-    def check_connect(self):
-        """
-        Checks the connection status and reconnects if necessary.
-        """
-        if not self.socket or self.socket.fileno() == -1:
-            return False, "连接未建立或已关闭。"
-        try:
-            # 尝试向服务器发送一个空的请求来检测连接状态
-            self.socket.send(b'\x00\x00\x00\x00')
-            return True, "连接正常"
-        except (socket.error, socket.timeout, ConnectionAbortedError):
-            return False, "无法与服务器通信，服务器可能已关闭"
-
-    def command(self, cmd):
-        """
-        Sends a command to the RCON server and processes the response.
-        """
-        try:
-            packet = struct.pack('<3i', 10 + len(cmd), 0, 2) + cmd.encode('utf-8') + b'\x00\x00'
-            self.socket.send(packet)
-            response = self.socket.recv(65536)
-            return self.handle_response_with_log(response)
-        except (socket.timeout, ConnectionAbortedError) as e:
-            print(f"Error during command execution: {e}")
-
-    def handle_response(self, response):
-        """
-        Handles the response received from the RCON server.
-        """
-        if response:
-            try:
-                decoded_response = response.decode('utf-8')
-                cleaned_text = re.sub(r'[^\x20-\x7E\u4E00-\u9FA5\n]', '', decoded_response)
-                return cleaned_text
-            except UnicodeDecodeError:
-                print("Unable to decode response as UTF-8, printing hexadecimal representation:")
-                print(response.hex())
-                if response.hex() == "0a000000ffffffff020000000000":
-                    return "0a000000ffffffff020000000000"
-
-    def handle_response_with_log(self, response):
-        """
-        Handles the response from the server and logs it with timestamp and command information.
-        """
-        if response:
-            try:
-                decoded_response = response.decode('utf-8').strip()
-                cleaned_text = re.sub(r'[^\x20-\x7E\u4E00-\u9FA5\n]', '', decoded_response)
-                print(cleaned_text)
-                return cleaned_text
-            except UnicodeDecodeError:
-                hex_response = response.hex()
-                print(f"Unable to decode response as UTF-8, printing hexadecimal representation:\n{hex_response}")
-
-    def close(self):
-        """
-        Closes the socket connection to the RCON server.
-        """
-        if self.socket:
-            self.socket.close()

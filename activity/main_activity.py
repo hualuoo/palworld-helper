@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 from PyQt5.uic import loadUi
 from PyQt5.QtGui import QIcon, QTextCharFormat, QColor
 from PyQt5.QtCore import QTimer, Qt
-from PyQt5.QtWidgets import QMainWindow, QMessageBox, QFileDialog, QTableWidgetItem, QMenu, QAction, QInputDialog
+from PyQt5.QtWidgets import QMainWindow, QMessageBox, QFileDialog, QTableWidgetItem, QMenu, QAction, QInputDialog, QStatusBar
 import psutil
 import pyperclip
 
@@ -24,8 +24,8 @@ class Window(QMainWindow):
         self.module_path = os.path.split(sys.modules[__name__].__file__)[0]
         self.config_path = os.path.join(sys.argv[0], r"../config.json")
         self.config = json_operation.load_json(self.config_path)
-        self.pal_rcon = None
         self.rcon_connect_flag = False
+        self.pal_rcon = None
         self.server_run_flag = False
         self.server_run_time = datetime.now()
         self.last_auto_backup_time = datetime.now()
@@ -46,6 +46,11 @@ class Window(QMainWindow):
         self.table_widget_player_list.setColumnWidth(0, 80)
         self.table_widget_player_list.setColumnWidth(1, 100)
         self.table_widget_player_list.setColumnWidth(2, 130)
+
+        if setting.status_bar_show_flag:
+            status_bar = QStatusBar()
+            self.setStatusBar(status_bar)
+            status_bar.showMessage(setting.status_bar_message)
 
         self.check_palserver_path()
 
@@ -101,6 +106,9 @@ class Window(QMainWindow):
         self.timed_detection_timer_5000 = QTimer(self)
         self.timed_detection_timer_5000.timeout.connect(self.timed_detection_5000)
         self.timed_detection_timer_5000.start(5000)
+        """self.timed_detection_timer_60000 = QTimer(self)
+        self.timed_detection_timer_60000.timeout.connect(self.timed_detection_5000)
+        self.timed_detection_timer_60000.start(60000)"""
 
     def timed_detection_1000(self):
         if self.server_run_flag:
@@ -131,10 +139,10 @@ class Window(QMainWindow):
         self.button_edit_server_name.setEnabled(not self.server_run_flag)
 
         if self.rcon_connect_flag:
-            flag, message = self.pal_rcon.check_connect()
+            flag, rcon_result = self.pal_rcon.send_command("info")
             if flag is False:
-                self.rcon_connect_flag = flag
-                self.text_browser_rcon_server_notice("client_error", message)
+                self.rcon_connect_flag = False
+                self.text_browser_rcon_server_notice("client_error", rcon_result.replace("\n", ""))
         self.button_test_connect.setEnabled(not self.rcon_connect_flag)
         self.line_edit_command.setEnabled(self.rcon_connect_flag)
         self.button_send_command.setEnabled(self.rcon_connect_flag)
@@ -161,8 +169,20 @@ class Window(QMainWindow):
                 self.last_auto_backup_time = datetime.now()
 
     def timed_detection_5000(self):
-        self.label_cpu_info.setText(str(psutil.cpu_percent(interval=0)) + " %")
-        self.label_mem_info.setText(str(round(psutil.virtual_memory().used / (1024 * 1024), 2)) + " MB / " + str(round(psutil.virtual_memory().total / (1024 * 1024), 2)) + " MB")
+        try:
+            self.label_cpu_info.setText(str(psutil.cpu_percent(interval=0)) + " %")
+            self.label_mem_info.setText(str(round(psutil.virtual_memory().used / (1024 * 1024), 2)) + " MB / " + str(round(psutil.virtual_memory().total / (1024 * 1024), 2)) + " MB")
+            if self.server_run_flag:
+                mem_info = 0
+                psu_proc = psutil.Process(self.config["palserver_pid"])
+                pcs = psu_proc.children(recursive=True)
+                for proc in pcs:
+                    mem_info += proc.memory_full_info().rss
+                self.label_mem_info_2.setText(str(round(mem_info / (1024 * 1024), 2)) + " MB")
+            else:
+                self.label_mem_info_2.setText("0 MB")
+        except:
+            return
 
         if "palserver_path" in self.config:
             total, used, free = shutil.disk_usage(self.config["palserver_path"])
@@ -176,15 +196,94 @@ class Window(QMainWindow):
         else:
             self.label_disk_info_2.setText("未设置")
 
-        if self.server_run_flag:
-            mem_info = 0
-            psu_proc = psutil.Process(self.config["palserver_pid"])
-            pcs = psu_proc.children(recursive=True)
-            for proc in pcs:
-                mem_info += proc.memory_full_info().rss
-            self.label_mem_info_2.setText(str(round(mem_info / (1024 * 1024), 2)) + " MB")
-        else:
-            self.label_mem_info_2.setText("0 MB")
+    def button_refresh_player_list_click(self):
+        if self.rcon_connect_flag is False:
+            self.text_browser_rcon_server_notice("client_error", "请先连接 RCON ！")
+            return
+
+        self.table_widget_player_list.clearContents()
+        self.table_widget_player_list.setRowCount(0)
+
+        self.player_list_menu = QMenu(self)
+        kick_action = QAction('踢出该玩家', self)
+        kick_action.triggered.connect(self.kick_player)
+        ban_action = QAction('封禁该玩家', self)
+        ban_action.triggered.connect(self.ban_player)
+        copy_uid_action = QAction('复制玩家UID', self)
+        copy_uid_action.triggered.connect(self.copy_uid)
+        copy_steamid_action = QAction('复制玩家StramID', self)
+        copy_steamid_action.triggered.connect(self.copy_steamid)
+        self.player_list_menu.addAction(kick_action)
+        self.player_list_menu.addAction(ban_action)
+        self.player_list_menu.addAction(copy_uid_action)
+        self.player_list_menu.addAction(copy_steamid_action)
+        self.table_widget_player_list.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.table_widget_player_list.customContextMenuRequested.connect(self.show_player_list_menu)
+
+        flag, rcon_result = self.pal_rcon.send_command("showplayers")
+        if flag is False:
+            self.rcon_connect_flag = False
+            self.text_browser_rcon_server_notice("client_error", rcon_result.replace("\n", ""))
+            return
+        player_list = rcon_result.split("\n")[1:]
+        player_id = 0
+        self.player_list = []
+        for player in player_list:
+            if player == "":
+                continue
+            player_info = player.split(",")
+            if len(player_info) < 3:
+                continue
+            self.player_list.append(player_info)
+            self.table_widget_player_list.insertRow(player_id)
+            item = QTableWidgetItem(player_info[0])
+            item.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
+            self.table_widget_player_list.setItem(player_id, 0, item)
+            item = QTableWidgetItem(player_info[-2])
+            item.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
+            self.table_widget_player_list.setItem(player_id, 1, item)
+            item = QTableWidgetItem(player_info[-1])
+            item.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
+            self.table_widget_player_list.setItem(player_id, 2, item)
+            player_id += 1
+
+        self.label_online_player.setText(str(player_id) + "/" + str(self.config["game_player_limit"]))
+
+    def kick_player(self):
+        selected_items = self.table_widget_player_list.selectedItems()
+        if selected_items:
+            selected_row = selected_items[0].row()
+            player_uid = self.player_list[selected_row][1]
+            command = "KickPlayer " + player_uid
+            self.text_browser_rcon_server_notice("client_command", command)
+            rcon_result = self.pal_rcon.send_command(command)
+            self.text_browser_rcon_server_notice("server_success", rcon_result.replace("\n", ""))
+        self.get_server_info()
+
+    def ban_player(self):
+        selected_items = self.table_widget_player_list.selectedItems()
+        if selected_items:
+            selected_row = selected_items[0].row()
+            player_uid = self.player_list[selected_row][1]
+            command = "BanPlayer " + player_uid
+            self.text_browser_rcon_server_notice("client_command", command)
+            rcon_result = self.pal_rcon.send_command(command)
+            self.text_browser_rcon_server_notice("server_success", rcon_result.replace("\n", ""))
+        self.get_server_info()
+
+    def copy_uid(self):
+        selected_items = self.table_widget_player_list.selectedItems()
+        if selected_items:
+            selected_row = selected_items[0].row()
+            player_uid = self.player_list[selected_row][1]
+            pyperclip.copy(player_uid)
+
+    def copy_steamid(self):
+        selected_items = self.table_widget_player_list.selectedItems()
+        if selected_items:
+            selected_row = selected_items[0].row()
+            player_steamid = self.player_list[selected_row][2]
+            pyperclip.copy(player_steamid)
 
     def text_browser_rcon_server_notice(self, message_type, message):
         black_format = QTextCharFormat()
@@ -253,6 +352,7 @@ class Window(QMainWindow):
                     self.button_automatic_rcon.setEnabled(True)
                     self.config_parser.read(self.palserver_settings_path, encoding="utf-8")
                     option_settings = self.config_parser['/Script/Pal.PalGameWorldSettings']['OptionSettings']
+                    option_settings = option_settings[1:-1]
                     self.option_settings_dict = dict(item.strip().split('=') for item in option_settings.split(','))
                     self.text_edit_server_name.setText(self.option_settings_dict["ServerName"].replace("\"", ""))
                     self.text_edit_server_description.setText(self.option_settings_dict["ServerDescription"].replace("\"", ""))
@@ -314,9 +414,8 @@ class Window(QMainWindow):
         admin_password = random_password.random_string()
         self.option_settings_dict['AdminPassword'] = "\"" + admin_password + "\""
         new_option_settings = ','.join(f"{key}={value}" for key, value in self.option_settings_dict.items())
-        self.config_parser['/Script/Pal.PalGameWorldSettings']['OptionSettings'] = new_option_settings
         with open(self.palserver_settings_path, 'w', encoding='utf-8') as config_file:
-            self.config_parser.write(config_file)
+            config_file.write("[/Script/Pal.PalGameWorldSettings]\nOptionSettings=" + "(" + new_option_settings + ")")
         self.config["rcon_addr"] = "127.0.0.1"
         self.config["rcon_port"] = 25575
         self.config["rcon_password"] = admin_password
@@ -342,32 +441,22 @@ class Window(QMainWindow):
         if int(rcon_port) < 1000 or int(rcon_port) > 65534:
             self.text_browser_rcon_server_notice("client_error", "RCON 端口需在1000~65534范围，请重新输入！")
             return
-        try:
-            self.pal_rcon = PalRcon(rcon_addr, int(rcon_port), rcon_password)
-            flag, message = self.pal_rcon.connect()
-            if flag is False:
-                self.text_browser_rcon_server_notice("client_error", message + "请检查服务端是否已启动！")
-                return
-            flag, message = self.pal_rcon.login()
-            if flag is False:
-                self.text_browser_rcon_server_notice("client_error", message + "请检查RCON密码是否正确！")
-                return
-            self.button_test_connect.setEnabled(False)
-            self.rcon_connect_flag = True
-            self.text_browser_rcon_server_notice("client_success", "RCON 服务器连接成功")
-        except:
-            self.text_browser_rcon_server_notice("client_error", "发生未知错误！请联系开发人员！")
-            QMessageBox.critical(self, "错误", "发生未知错误！请联系开发人员！")
-            return
 
+        self.pal_rcon = PalRcon(rcon_addr, int(rcon_port), rcon_password)
+        flag, rcon_result = self.pal_rcon.send_command("info")
+        if flag is False:
+            self.rcon_connect_flag = False
+            self.text_browser_rcon_server_notice("client_error", rcon_result.replace("\n", ""))
+            return
+        server_version = rcon_result[rcon_result.index("[") + 1:rcon_result.index("]")]
+        self.label_server_version.setText(server_version)
         self.config["rcon_addr"] = rcon_addr
         self.config["rcon_port"] = int(rcon_port)
         self.config["rcon_password"] = rcon_password
         self.save_config_json()
-
-        rcon_result = self.pal_rcon.command("info")
-        server_version = rcon_result[rcon_result.index("[")+1:rcon_result.index("]")]
-        self.label_server_version.setText(server_version)
+        self.button_test_connect.setEnabled(False)
+        self.rcon_connect_flag = True
+        self.text_browser_rcon_server_notice("client_success", "RCON 服务器连接成功")
 
     def button_game_start_click(self):
         if "palserver_path" not in self.config:
@@ -413,45 +502,54 @@ class Window(QMainWindow):
             return
         command = "Shutdown 1 The_server_will_stop_in_1_seconds!!!"
         self.text_browser_rcon_server_notice("client_command", command)
-        rcon_result = self.pal_rcon.command(command)
+        flag, rcon_result = self.pal_rcon.send_command(command)
+        self.rcon_connect_flag = flag
+        if flag is False:
+            self.rcon_connect_flag = False
+            self.text_browser_rcon_server_notice("client_error", rcon_result.replace("\n", ""))
+            return
         self.text_browser_rcon_server_notice("server_success", rcon_result.replace("\n", ""))
         self.server_run_flag = False
-        self.pal_rcon.close()
 
     def button_game_restart_click(self):
         if self.rcon_connect_flag is False:
             self.text_browser_rcon_server_notice("client_error", "请先连接 RCON ！")
             return
         self.server_run_flag = False
-        self.stop_countdown = 10
+        self.stop_countdown = 11
         self.stop_timer = QTimer(self)
         self.stop_timer.timeout.connect(self.broadcast_restart)
         self.stop_timer.start(1000)
 
     def broadcast_restart(self):
+        self.stop_countdown -= 1
         if self.stop_countdown > 0:
             command = "Broadcast The_server_will_restart_in_" + str(int(self.stop_countdown)) + "_seconds!!!"
             self.text_browser_rcon_server_notice("client_command", command)
-            rcon_result = self.pal_rcon.command(command)
+            flag, rcon_result = self.pal_rcon.send_command(command)
+            if flag is False:
+                self.rcon_connect_flag = False
+                self.text_browser_rcon_server_notice("client_error", rcon_result.replace("\n", ""))
+                return
             self.text_browser_rcon_server_notice("server_success", rcon_result.replace("\n", ""))
         elif self.stop_countdown == 0:
             command = "Shutdown 1 The_server_will_restart_in_0_seconds!!!"
             self.text_browser_rcon_server_notice("client_command", command)
-            rcon_result = self.pal_rcon.command(command)
+            flag, rcon_result = self.pal_rcon.send_command(command)
+            if flag is False:
+                self.rcon_connect_flag = False
+                self.text_browser_rcon_server_notice("client_error", rcon_result.replace("\n", ""))
+                return
+            self.server_run_flag = False
             self.text_browser_rcon_server_notice("server_success", rcon_result.replace("\n", ""))
-            self.rcon_connect_flag = False
-            self.pal_rcon.close()
         elif self.stop_countdown == -10:
             self.button_game_start_click()
         elif self.stop_countdown == -20:
             self.stop_timer.stop()
             self.button_test_connect_click()
-        self.stop_countdown -= 1
 
     def button_game_kill_click(self):
         self.server_run_flag = False
-        if self.rcon_connect_flag:
-            self.pal_rcon.close()
         psu_proc = psutil.Process(self.config["palserver_pid"])
         pcs = psu_proc.children(recursive=True)
         for proc in pcs:
@@ -463,8 +561,12 @@ class Window(QMainWindow):
         if command == "":
             return
         self.text_browser_rcon_server_notice("client_command", command.replace("\n", ""))
-        rcon_result = self.pal_rcon.command(command)
-        self.text_browser_rcon_server_notice("server_success", rcon_result)
+        flag, rcon_result = self.pal_rcon.send_command(command)
+        if flag is False:
+            self.rcon_connect_flag = False
+            self.text_browser_rcon_server_notice("client_error", rcon_result.replace("\n", ""))
+            return
+        self.text_browser_rcon_server_notice("server_success", rcon_result.replace("\n", ""))
         self.line_edit_command.setText("")
 
     def show_player_list_menu(self, position):
@@ -476,28 +578,36 @@ class Window(QMainWindow):
             return
         value, flag = QInputDialog.getInt(self, "倒计时关服并广播", "设置多少时间后关服(秒)：", 60, 10, 999, 2)
         if flag:
-            self.stop_countdown = value
+            self.stop_countdown = value + 1
             self.stop_timer = QTimer(self)
             self.stop_timer.timeout.connect(self.broadcast_stop)
             self.stop_timer.start(1000)
 
     def broadcast_stop(self):
+        self.stop_countdown -= 1
         if self.stop_countdown > 0:
             command = "Broadcast The_server_will_stop_in_" + str(int(self.stop_countdown)) + "_seconds!!!"
             self.text_browser_rcon_server_notice("client_command", command)
-            rcon_result = self.pal_rcon.command(command)
+            flag, rcon_result = self.pal_rcon.send_command(command)
+            if flag is False:
+                self.rcon_connect_flag = False
+                self.text_browser_rcon_server_notice("client_error", rcon_result.replace("\n", ""))
+                return
             self.text_browser_rcon_server_notice("server_success", rcon_result.replace("\n", ""))
         elif self.stop_countdown == 0:
             self.button_game_stop_click()
             self.stop_timer.stop()
-        self.stop_countdown -= 1
 
     def button_broadcast_click(self):
         value, flag = QInputDialog.getText(self, "广播", "请输入需要全服广播的内容：")
         if flag:
             command = "Broadcast " + value
             self.text_browser_rcon_server_notice("client_command", command)
-            rcon_result = self.pal_rcon.command(command)
+            flag, rcon_result = self.pal_rcon.send_command(command)
+            if flag is False:
+                self.rcon_connect_flag = False
+                self.text_browser_rcon_server_notice("client_error", rcon_result.replace("\n", ""))
+                return
             self.text_browser_rcon_server_notice("server_success", rcon_result.replace("\n", ""))
 
     def check_box_crash_detection_click(self, flag):
@@ -561,91 +671,6 @@ class Window(QMainWindow):
             self.check_box_auto_backup.setEnabled(True)
             self.line_edit_auto_backup_time_limit.setEnabled(True)
 
-    def button_refresh_player_list_click(self):
-        if self.rcon_connect_flag is False:
-            self.text_browser_rcon_server_notice("client_error", "请先连接 RCON ！")
-            return
-
-        self.table_widget_player_list.clearContents()
-        self.table_widget_player_list.setRowCount(0)
-
-        self.player_list_menu = QMenu(self)
-        kick_action = QAction('踢出该玩家', self)
-        kick_action.triggered.connect(self.kick_player)
-        ban_action = QAction('封禁该玩家', self)
-        ban_action.triggered.connect(self.ban_player)
-        copy_uid_action = QAction('复制玩家UID', self)
-        copy_uid_action.triggered.connect(self.copy_uid)
-        copy_steamid_action = QAction('复制玩家StramID', self)
-        copy_steamid_action.triggered.connect(self.copy_steamid)
-        self.player_list_menu.addAction(kick_action)
-        self.player_list_menu.addAction(ban_action)
-        self.player_list_menu.addAction(copy_uid_action)
-        self.player_list_menu.addAction(copy_steamid_action)
-        self.table_widget_player_list.setContextMenuPolicy(Qt.CustomContextMenu)
-        self.table_widget_player_list.customContextMenuRequested.connect(self.show_player_list_menu)
-
-        rcon_result = self.pal_rcon.command("showplayers")
-        player_list = rcon_result.split("\n")[1:]
-        player_id = 0
-        self.player_list = []
-        for player in player_list:
-            if player == "":
-                continue
-            player_info = player.split(",")
-            if len(player_info) < 3:
-                continue
-            self.player_list.append(player_info)
-            self.table_widget_player_list.insertRow(player_id)
-            item = QTableWidgetItem(player_info[0])
-            item.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
-            self.table_widget_player_list.setItem(player_id, 0, item)
-            item = QTableWidgetItem(player_info[1])
-            item.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
-            self.table_widget_player_list.setItem(player_id, 1, item)
-            item = QTableWidgetItem(player_info[2])
-            item.setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
-            self.table_widget_player_list.setItem(player_id, 2, item)
-            player_id += 1
-
-        self.label_online_player.setText(str(player_id) + "/" + str(self.config["game_player_limit"]))
-
-    def kick_player(self):
-        selected_items = self.table_widget_player_list.selectedItems()
-        if selected_items:
-            selected_row = selected_items[0].row()
-            player_uid = self.player_list[selected_row][1]
-            command = "KickPlayer " + player_uid
-            self.text_browser_rcon_server_notice("client_command", command)
-            rcon_result = self.pal_rcon.command(command)
-            self.text_browser_rcon_server_notice("server_success", rcon_result)
-        self.get_server_info()
-
-    def ban_player(self):
-        selected_items = self.table_widget_player_list.selectedItems()
-        if selected_items:
-            selected_row = selected_items[0].row()
-            player_uid = self.player_list[selected_row][1]
-            command = "BanPlayer " + player_uid
-            self.text_browser_rcon_server_notice("client_command", command)
-            rcon_result = self.pal_rcon.command(command)
-            self.text_browser_rcon_server_notice("server_success", rcon_result)
-        self.get_server_info()
-
-    def copy_uid(self):
-        selected_items = self.table_widget_player_list.selectedItems()
-        if selected_items:
-            selected_row = selected_items[0].row()
-            player_uid = self.player_list[selected_row][1]
-            pyperclip.copy(player_uid)
-
-    def copy_steamid(self):
-        selected_items = self.table_widget_player_list.selectedItems()
-        if selected_items:
-            selected_row = selected_items[0].row()
-            player_steamid = self.player_list[selected_row][2]
-            pyperclip.copy(player_steamid)
-
     def button_edit_settings_click(self):
         self.world_settings_window = world_settings_activity.Window()
         self.world_settings_window.show()
@@ -654,7 +679,6 @@ class Window(QMainWindow):
         self.option_settings_dict["ServerName"] = "\"" + self.text_edit_server_name.toPlainText().replace("\n", "") + "\""
         self.option_settings_dict["ServerDescription"] = "\"" + self.text_edit_server_description.toPlainText().replace("\n", "") + "\""
         new_option_settings = ','.join(f"{key}={value}" for key, value in self.option_settings_dict.items())
-        self.config_parser['/Script/Pal.PalGameWorldSettings']['OptionSettings'] = new_option_settings
         with open(self.palserver_settings_path, 'w', encoding='utf-8') as config_file:
-            self.config_parser.write(config_file)
+            config_file.write("[/Script/Pal.PalGameWorldSettings]\nOptionSettings=" + "(" + new_option_settings + ")")
         self.text_browser_rcon_server_notice("client_success", "服务器名称或服务器描述已修改成功，现可启动服务器查看。")

@@ -297,7 +297,7 @@
       <rect>
        <x>80</x>
        <y>460</y>
-       <width>140</width>
+       <width>120</width>
        <height>20</height>
       </rect>
      </property>
@@ -308,9 +308,9 @@
     <widget class="QPushButton" name="button_broadcast">
      <property name="geometry">
       <rect>
-       <x>230</x>
+       <x>210</x>
        <y>460</y>
-       <width>100</width>
+       <width>80</width>
        <height>20</height>
       </rect>
      </property>
@@ -324,9 +324,9 @@
      </property>
      <property name="geometry">
       <rect>
-       <x>340</x>
+       <x>300</x>
        <y>460</y>
-       <width>200</width>
+       <width>170</width>
        <height>20</height>
       </rect>
      </property>
@@ -340,14 +340,14 @@
      </property>
      <property name="geometry">
       <rect>
-       <x>560</x>
+       <x>480</x>
        <y>460</y>
-       <width>131</width>
+       <width>160</width>
        <height>20</height>
       </rect>
      </property>
      <property name="text">
-      <string>存档修复(等待更新)</string>
+      <string>存档迁移 (单机到服务器)</string>
      </property>
     </widget>
     <widget class="QPushButton" name="button_countdown_stop_6">
@@ -356,9 +356,9 @@
      </property>
      <property name="geometry">
       <rect>
-       <x>710</x>
+       <x>650</x>
        <y>460</y>
-       <width>131</width>
+       <width>200</width>
        <height>20</height>
       </rect>
      </property>

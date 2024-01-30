@@ -31,6 +31,7 @@ class Window(QMainWindow):
                 config = configparser.ConfigParser()
                 config.read(self.palserver_settings_path, encoding="utf-8")
                 option_settings = config['/Script/Pal.PalGameWorldSettings']['OptionSettings']
+                option_settings = option_settings[1:-1]
                 self.option_settings_dict = dict(item.strip().split('=') for item in option_settings.split(','))
                 self.load_settings()
             else:
@@ -39,7 +40,7 @@ class Window(QMainWindow):
 
     def load_settings(self):
         # print(self.option_settings_dict)
-        self.comboBox_Difficulty.setCurrentText(self.option_settings_dict["(Difficulty"])
+        self.comboBox_Difficulty.setCurrentText(self.option_settings_dict["Difficulty"])
         self.doubleSpinBox_DayTimeSpeedRate.setValue(float(self.option_settings_dict["DayTimeSpeedRate"]))
         self.doubleSpinBox_NightTimeSpeedRate.setValue(float(self.option_settings_dict["NightTimeSpeedRate"]))
         self.doubleSpinBox_ExpRate.setValue(float(self.option_settings_dict["ExpRate"]))
@@ -91,7 +92,7 @@ class Window(QMainWindow):
         self.doubleSpinBox_CoopPlayerMaxNum.setValue(int(self.option_settings_dict["CoopPlayerMaxNum"]))
 
     def button_write_click(self):
-        self.option_settings_dict["(Difficulty"] = self.comboBox_Difficulty.currentText()
+        self.option_settings_dict["Difficulty"] = self.comboBox_Difficulty.currentText()
         self.option_settings_dict["DayTimeSpeedRate"] = "{:.6f}".format(self.doubleSpinBox_DayTimeSpeedRate.value())
         self.option_settings_dict["NightTimeSpeedRate"] = "{:.6f}".format(self.doubleSpinBox_NightTimeSpeedRate.value())
         self.option_settings_dict["ExpRate"] = "{:.6f}".format(self.doubleSpinBox_ExpRate.value())
@@ -190,8 +191,12 @@ class Window(QMainWindow):
         new_option_settings = ','.join(f"{key}={value}" for key, value in self.option_settings_dict.items())
         config = configparser.ConfigParser()
         config.read(self.palserver_settings_path, encoding="utf-8")
-        config['/Script/Pal.PalGameWorldSettings']['OptionSettings'] = new_option_settings
         with open(self.palserver_settings_path, 'w', encoding='utf-8') as config_file:
-            config.write(config_file)
+            config_file.write("[/Script/Pal.PalGameWorldSettings]\nOptionSettings=" + "(" + new_option_settings + ")")
 
         QMessageBox.information(self, "成功", "服务器配置文件已修改！")
+
+    def button_default_click(self):
+        with open(self.palserver_settings_path, 'w', encoding='utf-8') as config_file:
+            config_file.write('[/Script/Pal.PalGameWorldSettings]\nOptionSettings=(Difficulty=None,DayTimeSpeedRate=1.000000,NightTimeSpeedRate=1.000000,ExpRate=1.000000,PalCaptureRate=1.000000,PalSpawnNumRate=1.000000,PalDamageRateAttack=1.000000,PalDamageRateDefense=1.000000,PlayerDamageRateAttack=1.000000,PlayerDamageRateDefense=1.000000,PlayerStomachDecreaceRate=1.000000,PlayerStaminaDecreaceRate=1.000000,PlayerAutoHPRegeneRate=1.000000,PlayerAutoHpRegeneRateInSleep=1.000000,PalStomachDecreaceRate=1.000000,PalStaminaDecreaceRate=1.000000,PalAutoHPRegeneRate=1.000000,PalAutoHpRegeneRateInSleep=1.000000,BuildObjectDamageRate=1.000000,BuildObjectDeteriorationDamageRate=1.000000,CollectionDropRate=1.000000,CollectionObjectHpRate=1.000000,CollectionObjectRespawnSpeedRate=1.000000,EnemyDropItemRate=1.000000,DeathPenalty=All,bEnablePlayerToPlayerDamage=False,bEnableFriendlyFire=False,bEnableInvaderEnemy=True,bActiveUNKO=False,bEnableAimAssistPad=True,bEnableAimAssistKeyboard=False,DropItemMaxNum=3000,DropItemMaxNum_UNKO=100,BaseCampMaxNum=128,BaseCampWorkerMaxNum=15,DropItemAliveMaxHours=1.000000,bAutoResetGuildNoOnlinePlayers=False,AutoResetGuildTimeNoOnlinePlayers=72.000000,GuildPlayerMaxNum=20,PalEggDefaultHatchingTime=72.000000,WorkSpeedRate=1.000000,bIsMultiplay=False,bIsPvP=False,bCanPickupOtherGuildDeathPenaltyDrop=False,bEnableNonLoginPenalty=True,bEnableFastTravel=True,bIsStartLocationSelectByMap=True,bExistPlayerAfterLogout=False,bEnableDefenseOtherGuildPlayer=False,CoopPlayerMaxNum=4,ServerPlayerMaxNum=32,ServerName="Default Palworld Server",ServerDescription="",AdminPassword="",ServerPassword="",PublicPort=8211,PublicIP="",RCONEnabled=False,RCONPort=25575,Region="",bUseAuth=True,BanListURL="https://api.palworldgame.com/api/banlist.txt")\n')
+        self.load_settings()
