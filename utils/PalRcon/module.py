@@ -1,14 +1,5 @@
-import rcon
-from rcon.source.proto import Packet
-from rcon.source import Client
-
-
-class PalClient(Client):
-    def run(self, command: str, *args: str, encoding: str = "utf-8") -> str:
-        """Run a command."""
-        request = Packet.make_command(command, *args, encoding=encoding)
-        response = self.communicate(request)
-        return response.payload.decode(encoding)
+import utils.PalRcon.rcon
+from utils.PalRcon.rcon.source import Client
 
 
 class PalRcon:
@@ -19,19 +10,19 @@ class PalRcon:
 
     def send_command(self, command):
         try:
-            with PalClient(host=self.rcon_addr,
-                           port=self.rcon_port,
-                           passwd=self.rcon_password,
-                           timeout=1) as pal_client:
+            with Client(host=self.rcon_addr,
+                        port=self.rcon_port,
+                        passwd=self.rcon_password,
+                        timeout=1) as pal_client:
                 response = pal_client.run(command)
             return True, response
-        except rcon.exceptions.WrongPassword:
+        except utils.PalRcon.rcon.exceptions.WrongPassword:
             return False, "RCON 密码错误，请检查密码是否正确"
-        except rcon.exceptions.SessionTimeout:
+        except utils.PalRcon.rcon.exceptions.SessionTimeout:
             return False, "会话超时，请检查服务端是否正常开启"
-        except rcon.exceptions.EmptyResponse:
+        except utils.PalRcon.rcon.exceptions.EmptyResponse:
             return False, "回复为空"
-        except rcon.exceptions.UserAbort:
+        except utils.PalRcon.rcon.exceptions.UserAbort:
             return False, "用户中断"
         except TimeoutError:
             return False, "连接超时，请检查服务端是否正常开启"

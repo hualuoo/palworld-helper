@@ -1,8 +1,8 @@
 import os
 import sys
-import configparser
 import subprocess
 import shutil
+import time
 from datetime import datetime, timedelta
 
 from PyQt5.uic import loadUi
@@ -13,7 +13,7 @@ import psutil
 import pyperclip
 
 from activity import world_settings_activity
-from utils import json_operation, random_password
+from utils import json_operation, random_password, settings_file_operation
 from utils.PalRcon.module import PalRcon
 import setting
 
@@ -31,7 +31,6 @@ class Window(QMainWindow):
         self.last_auto_backup_time = datetime.now()
         self.player_list = []
         self.palserver_settings_path = None
-        self.config_parser = configparser.ConfigParser()
         self.option_settings_dict = {}
         self.initUi()
 
@@ -139,7 +138,7 @@ class Window(QMainWindow):
         self.button_edit_server_name.setEnabled(not self.server_run_flag)
 
         if self.rcon_connect_flag:
-            flag, rcon_result = self.pal_rcon.send_command("info")
+            flag, rcon_result = self.pal_rcon.send_command("test")
             if flag is False:
                 self.rcon_connect_flag = False
                 self.text_browser_rcon_server_notice("client_error", rcon_result.replace("\n", ""))
@@ -343,16 +342,13 @@ class Window(QMainWindow):
                 if os.path.isfile(self.palserver_settings_path):
                     if os.stat(self.palserver_settings_path).st_size < 10:
                         self.text_browser_rcon_server_notice("client_success", "检测到 服务端路径下的 /Pal/Saved/Config/WindowsServer/PalWorldSettings.ini 配置文件大小不正确，正在重新初始化。")
-                        with open(self.palserver_settings_path, 'w', encoding='utf-8') as config_file:
-                            config_file.write('[/Script/Pal.PalGameWorldSettings]\nOptionSettings=(Difficulty=None,DayTimeSpeedRate=1.000000,NightTimeSpeedRate=1.000000,ExpRate=1.000000,PalCaptureRate=1.000000,PalSpawnNumRate=1.000000,PalDamageRateAttack=1.000000,PalDamageRateDefense=1.000000,PlayerDamageRateAttack=1.000000,PlayerDamageRateDefense=1.000000,PlayerStomachDecreaceRate=1.000000,PlayerStaminaDecreaceRate=1.000000,PlayerAutoHPRegeneRate=1.000000,PlayerAutoHpRegeneRateInSleep=1.000000,PalStomachDecreaceRate=1.000000,PalStaminaDecreaceRate=1.000000,PalAutoHPRegeneRate=1.000000,PalAutoHpRegeneRateInSleep=1.000000,BuildObjectDamageRate=1.000000,BuildObjectDeteriorationDamageRate=1.000000,CollectionDropRate=1.000000,CollectionObjectHpRate=1.000000,CollectionObjectRespawnSpeedRate=1.000000,EnemyDropItemRate=1.000000,DeathPenalty=All,bEnablePlayerToPlayerDamage=False,bEnableFriendlyFire=False,bEnableInvaderEnemy=True,bActiveUNKO=False,bEnableAimAssistPad=True,bEnableAimAssistKeyboard=False,DropItemMaxNum=3000,DropItemMaxNum_UNKO=100,BaseCampMaxNum=128,BaseCampWorkerMaxNum=15,DropItemAliveMaxHours=1.000000,bAutoResetGuildNoOnlinePlayers=False,AutoResetGuildTimeNoOnlinePlayers=72.000000,GuildPlayerMaxNum=20,PalEggDefaultHatchingTime=72.000000,WorkSpeedRate=1.000000,bIsMultiplay=False,bIsPvP=False,bCanPickupOtherGuildDeathPenaltyDrop=False,bEnableNonLoginPenalty=True,bEnableFastTravel=True,bIsStartLocationSelectByMap=True,bExistPlayerAfterLogout=False,bEnableDefenseOtherGuildPlayer=False,CoopPlayerMaxNum=4,ServerPlayerMaxNum=32,ServerName="Default Palworld Server",ServerDescription="",AdminPassword="",ServerPassword="",PublicPort=8211,PublicIP="",RCONEnabled=False,RCONPort=25575,Region="",bUseAuth=True,BanListURL="https://api.palworldgame.com/api/banlist.txt")\n')
+                        settings_file_operation.default_setting(self.palserver_settings_path)
                     self.line_edit_palserver_path.setText(self.config["palserver_path"])
                     self.button_open_settings_dir.setEnabled(True)
                     self.button_open_rcon_settings_file.setEnabled(True)
                     self.button_get_rcon_config.setEnabled(True)
                     self.button_automatic_rcon.setEnabled(True)
-                    self.config_parser.read(self.palserver_settings_path, encoding="utf-8")
-                    option_settings = self.config_parser['/Script/Pal.PalGameWorldSettings']['OptionSettings']
-                    option_settings = option_settings[1:-1]
+                    option_settings = settings_file_operation.load_setting(self.palserver_settings_path)
                     self.option_settings_dict = dict(item.strip().split('=') for item in option_settings.split(','))
                     self.text_edit_server_name.setText(self.option_settings_dict["ServerName"].replace("\"", ""))
                     self.text_edit_server_description.setText(self.option_settings_dict["ServerDescription"].replace("\"", ""))
@@ -395,9 +391,9 @@ class Window(QMainWindow):
             return
 
     def button_get_rcon_config_click(self):
-        if self.option_settings_dict['RCONEnabled'] is False:
-            self.text_browser_rcon_server_notice("client_error", "配置文件中 RCONEnabled 未启用，请修改为 True！")
-            QMessageBox.critical(self, "错误", "配置文件中 RCONEnabled 未启用，请修改为 True！")
+        if self.option_settings_dict['RCONEnabled'] == "False":
+            self.text_browser_rcon_server_notice("client_error", "配置文件中 RCONEnabled 未启用，请修改为 True 或使用自动配置！")
+            QMessageBox.critical(self, "错误", "配置文件中 RCONEnabled 未启用，请修改为 True 或使用自动配置！")
             return
         self.config["rcon_addr"] = "127.0.0.1"
         self.config["rcon_port"] = int(self.option_settings_dict["RCONPort"])
@@ -414,8 +410,7 @@ class Window(QMainWindow):
         admin_password = random_password.random_string()
         self.option_settings_dict['AdminPassword'] = "\"" + admin_password + "\""
         new_option_settings = ','.join(f"{key}={value}" for key, value in self.option_settings_dict.items())
-        with open(self.palserver_settings_path, 'w', encoding='utf-8') as config_file:
-            config_file.write("[/Script/Pal.PalGameWorldSettings]\nOptionSettings=" + "(" + new_option_settings + ")")
+        settings_file_operation.save_setting(self.palserver_settings_path, new_option_settings)
         self.config["rcon_addr"] = "127.0.0.1"
         self.config["rcon_port"] = 25575
         self.config["rcon_password"] = admin_password
@@ -679,6 +674,5 @@ class Window(QMainWindow):
         self.option_settings_dict["ServerName"] = "\"" + self.text_edit_server_name.toPlainText().replace("\n", "") + "\""
         self.option_settings_dict["ServerDescription"] = "\"" + self.text_edit_server_description.toPlainText().replace("\n", "") + "\""
         new_option_settings = ','.join(f"{key}={value}" for key, value in self.option_settings_dict.items())
-        with open(self.palserver_settings_path, 'w', encoding='utf-8') as config_file:
-            config_file.write("[/Script/Pal.PalGameWorldSettings]\nOptionSettings=" + "(" + new_option_settings + ")")
+        settings_file_operation.save_setting(self.palserver_settings_path, new_option_settings)
         self.text_browser_rcon_server_notice("client_success", "服务器名称或服务器描述已修改成功，现可启动服务器查看。")

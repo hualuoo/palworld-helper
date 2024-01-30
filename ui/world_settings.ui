@@ -2616,14 +2616,14 @@
      <widget class="QPushButton" name="button_default">
       <property name="geometry">
        <rect>
-        <x>554</x>
+        <x>410</x>
         <y>1520</y>
-        <width>100</width>
+        <width>240</width>
         <height>20</height>
        </rect>
       </property>
       <property name="text">
-       <string>恢复默认配置</string>
+       <string>恢复默认配置 (包含服务器名称、RCON等)</string>
       </property>
      </widget>
     </widget>

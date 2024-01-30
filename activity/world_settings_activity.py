@@ -1,12 +1,11 @@
 import os
 import sys
-import configparser
 
 from PyQt5.uic import loadUi
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QMainWindow, QMessageBox, QFileDialog, QTableWidgetItem, QMenu, QAction, QInputDialog
 
-from utils import json_operation
+from utils import json_operation, settings_file_operation
 
 
 class Window(QMainWindow):
@@ -28,10 +27,7 @@ class Window(QMainWindow):
         if "palserver_path" in self.config:
             self.palserver_settings_path = os.path.join(self.config["palserver_path"], r"../Pal/Saved/Config/WindowsServer/PalWorldSettings.ini")
             if os.path.isfile(self.palserver_settings_path):
-                config = configparser.ConfigParser()
-                config.read(self.palserver_settings_path, encoding="utf-8")
-                option_settings = config['/Script/Pal.PalGameWorldSettings']['OptionSettings']
-                option_settings = option_settings[1:-1]
+                option_settings = settings_file_operation.load_setting(self.palserver_settings_path)
                 self.option_settings_dict = dict(item.strip().split('=') for item in option_settings.split(','))
                 self.load_settings()
             else:
@@ -189,14 +185,10 @@ class Window(QMainWindow):
         self.option_settings_dict["CoopPlayerMaxNum"] = str(int(self.doubleSpinBox_CoopPlayerMaxNum.value()))
 
         new_option_settings = ','.join(f"{key}={value}" for key, value in self.option_settings_dict.items())
-        config = configparser.ConfigParser()
-        config.read(self.palserver_settings_path, encoding="utf-8")
-        with open(self.palserver_settings_path, 'w', encoding='utf-8') as config_file:
-            config_file.write("[/Script/Pal.PalGameWorldSettings]\nOptionSettings=" + "(" + new_option_settings + ")")
-
+        settings_file_operation.save_setting(self.palserver_settings_path, new_option_settings)
         QMessageBox.information(self, "成功", "服务器配置文件已修改！")
 
     def button_default_click(self):
-        with open(self.palserver_settings_path, 'w', encoding='utf-8') as config_file:
-            config_file.write('[/Script/Pal.PalGameWorldSettings]\nOptionSettings=(Difficulty=None,DayTimeSpeedRate=1.000000,NightTimeSpeedRate=1.000000,ExpRate=1.000000,PalCaptureRate=1.000000,PalSpawnNumRate=1.000000,PalDamageRateAttack=1.000000,PalDamageRateDefense=1.000000,PlayerDamageRateAttack=1.000000,PlayerDamageRateDefense=1.000000,PlayerStomachDecreaceRate=1.000000,PlayerStaminaDecreaceRate=1.000000,PlayerAutoHPRegeneRate=1.000000,PlayerAutoHpRegeneRateInSleep=1.000000,PalStomachDecreaceRate=1.000000,PalStaminaDecreaceRate=1.000000,PalAutoHPRegeneRate=1.000000,PalAutoHpRegeneRateInSleep=1.000000,BuildObjectDamageRate=1.000000,BuildObjectDeteriorationDamageRate=1.000000,CollectionDropRate=1.000000,CollectionObjectHpRate=1.000000,CollectionObjectRespawnSpeedRate=1.000000,EnemyDropItemRate=1.000000,DeathPenalty=All,bEnablePlayerToPlayerDamage=False,bEnableFriendlyFire=False,bEnableInvaderEnemy=True,bActiveUNKO=False,bEnableAimAssistPad=True,bEnableAimAssistKeyboard=False,DropItemMaxNum=3000,DropItemMaxNum_UNKO=100,BaseCampMaxNum=128,BaseCampWorkerMaxNum=15,DropItemAliveMaxHours=1.000000,bAutoResetGuildNoOnlinePlayers=False,AutoResetGuildTimeNoOnlinePlayers=72.000000,GuildPlayerMaxNum=20,PalEggDefaultHatchingTime=72.000000,WorkSpeedRate=1.000000,bIsMultiplay=False,bIsPvP=False,bCanPickupOtherGuildDeathPenaltyDrop=False,bEnableNonLoginPenalty=True,bEnableFastTravel=True,bIsStartLocationSelectByMap=True,bExistPlayerAfterLogout=False,bEnableDefenseOtherGuildPlayer=False,CoopPlayerMaxNum=4,ServerPlayerMaxNum=32,ServerName="Default Palworld Server",ServerDescription="",AdminPassword="",ServerPassword="",PublicPort=8211,PublicIP="",RCONEnabled=False,RCONPort=25575,Region="",bUseAuth=True,BanListURL="https://api.palworldgame.com/api/banlist.txt")\n')
+        settings_file_operation.default_setting(self.palserver_settings_path)
         self.load_settings()
+        QMessageBox.information(self, "成功", "服务器配置文件已还原成默认值！")
