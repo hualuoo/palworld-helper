@@ -10,10 +10,10 @@
     <img src="https://img.shields.io/badge/Language-Python-blue?style=flat-square"/>
   </a>
   <a href="https://github.com/hualuoo/palworld-helper/releases">
-    <img src="https://img.shields.io/badge/Release-V1.2.1-blue?style=flat-square"/>
+    <img src="https://img.shields.io/badge/Release-V1.2.2-blue?style=flat-square"/>
   </a>
 </p>
-<h4 align="center">4小时用PyQt搓出来的小工具，交流Q群：209726238</h4>
+<h4 align="center">6小时用PyQt搓出来的小工具，交流Q群：209726238</h4>
 
 ![image](https://raw.githubusercontent.com/hualuoo/palworld_helper/main/images/img1.png)
 
@@ -32,10 +32,10 @@
 * 🌈 ... ...
 
 ## :hammer_and_wrench: BUG问题相关
-由于该工具为边打CS边搓出来的小工具，为方便自身开服使用，仅花了5小时不到，未考虑优化等因素，如遇BUG，欢迎提交issues并注明出现错误的情景方便复现。
+由于该工具为边打CS边搓出来的小工具，为方便自身开服使用，仅花了7小时不到，未考虑优化等因素，如遇BUG，欢迎提交issues并注明出现错误的情景方便复现。
 #### 报错查看建议使用如下源码执行的方式：
 ```shell
-# 下载Python并安装：https://www.python.org/
+# 下载Python3.10或以上版本并安装：https://www.python.org/
 # Git Clone或下载代码文件，以下以C:\Users\Administrator\Desktop\palworld-helper为例
 # 打开cmd，cd进入代码路径
 cd C:\Users\Administrator\Desktop\palworld-helper
