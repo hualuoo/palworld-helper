@@ -103,7 +103,6 @@ class Window(QMainWindow):
             self.line_edit_launch_options.setText(self.config["launch_options_info"])
         if "launch_options_flag" in self.config:
             self.check_box_launch_options.setChecked(self.config["launch_options_flag"])
-            self.check_box_launch_options.setEnabled(not self.config["launch_options_flag"])
             self.line_edit_launch_options.setEnabled(not self.config["launch_options_flag"])
 
         self.timed_detection_timer_1000 = QTimer(self)
