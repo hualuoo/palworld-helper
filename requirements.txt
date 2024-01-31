@@ -2,4 +2,3 @@ PyQt5==5.15.10
 psutil==5.9.8
 pyperclip==1.8.2
 pyinstaller==6.3.0
-rcon==2.4.4

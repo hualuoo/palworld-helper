@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1448</width>
-    <height>776</height>
+    <width>1455</width>
+    <height>765</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -824,7 +824,7 @@ p, li { white-space: pre-wrap; }
      </rect>
     </property>
     <property name="title">
-     <string>玩家列表</string>
+     <string>玩家列表(每分钟自动刷新)</string>
     </property>
     <widget class="QTableWidget" name="table_widget_player_list">
      <property name="geometry">
@@ -880,14 +880,14 @@ p, li { white-space: pre-wrap; }
     <widget class="QPushButton" name="button_refresh_player_list">
      <property name="geometry">
       <rect>
-       <x>260</x>
+       <x>244</x>
        <y>20</y>
-       <width>75</width>
+       <width>90</width>
        <height>20</height>
       </rect>
      </property>
      <property name="text">
-      <string>刷新</string>
+      <string>手动刷新</string>
      </property>
     </widget>
    </widget>
@@ -1125,7 +1125,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1448</width>
+     <width>1455</width>
      <height>21</height>
     </rect>
    </property>
@@ -1537,7 +1537,7 @@ p, li { white-space: pre-wrap; }
    <sender>button_refresh_player_list</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
-   <slot>button_refresh_player_list_click()</slot>
+   <slot>timed_detection_timer_60000()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>1399</x>
@@ -1556,8 +1556,8 @@ p, li { white-space: pre-wrap; }
    <slot>button_edit_settings_click()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>481</x>
-     <y>619</y>
+     <x>479</x>
+     <y>630</y>
     </hint>
     <hint type="destinationlabel">
      <x>1447</x>
@@ -1605,7 +1605,7 @@ p, li { white-space: pre-wrap; }
   <slot>button_select_backup_dir_click()</slot>
   <slot>line_edit_auto_backup_time_limit_textchange()</slot>
   <slot>check_box_auto_backup_click()</slot>
-  <slot>button_refresh_player_list_click()</slot>
+  <slot>timed_detection_timer_60000()</slot>
   <slot>button_edit_settings_click()</slot>
   <slot>button_edit_server_name_click()</slot>
  </slots>

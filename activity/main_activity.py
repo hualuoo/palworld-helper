@@ -105,9 +105,9 @@ class Window(QMainWindow):
         self.timed_detection_timer_5000 = QTimer(self)
         self.timed_detection_timer_5000.timeout.connect(self.timed_detection_5000)
         self.timed_detection_timer_5000.start(5000)
-        """self.timed_detection_timer_60000 = QTimer(self)
+        self.timed_detection_timer_60000 = QTimer(self)
         self.timed_detection_timer_60000.timeout.connect(self.timed_detection_5000)
-        self.timed_detection_timer_60000.start(60000)"""
+        self.timed_detection_timer_60000.start(60000)
 
     def timed_detection_1000(self):
         if self.server_run_flag:
@@ -137,12 +137,6 @@ class Window(QMainWindow):
         self.text_edit_server_description.setEnabled(not self.server_run_flag)
         self.button_edit_server_name.setEnabled(not self.server_run_flag)
 
-        if self.rcon_connect_flag:
-            flag, rcon_result = self.pal_rcon.send_command("test")
-            if flag is False:
-                self.rcon_connect_flag = False
-                self.text_browser_rcon_server_notice("client_error", rcon_result.replace("\n", ""))
-        self.button_test_connect.setEnabled(not self.rcon_connect_flag)
         self.line_edit_command.setEnabled(self.rcon_connect_flag)
         self.button_send_command.setEnabled(self.rcon_connect_flag)
         self.button_countdown_stop.setEnabled(self.rcon_connect_flag)
@@ -195,9 +189,8 @@ class Window(QMainWindow):
         else:
             self.label_disk_info_2.setText("未设置")
 
-    def button_refresh_player_list_click(self):
+    def timed_detection_timer_60000(self):
         if self.rcon_connect_flag is False:
-            self.text_browser_rcon_server_notice("client_error", "请先连接 RCON ！")
             return
 
         self.table_widget_player_list.clearContents()
@@ -336,41 +329,49 @@ class Window(QMainWindow):
         json_operation.save_json(self.config_path, self.config)
 
     def check_palserver_path(self):
-        if "palserver_path" in self.config:
-            if os.path.isfile(self.config["palserver_path"]):
-                self.palserver_settings_path = os.path.abspath(os.path.join(self.config["palserver_path"], r"../Pal/Saved/Config/WindowsServer/PalWorldSettings.ini"))
-                if os.path.isfile(self.palserver_settings_path):
-                    if os.stat(self.palserver_settings_path).st_size < 10:
-                        self.text_browser_rcon_server_notice("client_success", "检测到 服务端路径下的 /Pal/Saved/Config/WindowsServer/PalWorldSettings.ini 配置文件大小不正确，正在重新初始化。")
-                        settings_file_operation.default_setting(self.palserver_settings_path)
-                    self.line_edit_palserver_path.setText(self.config["palserver_path"])
-                    self.button_open_settings_dir.setEnabled(True)
-                    self.button_open_rcon_settings_file.setEnabled(True)
-                    self.button_get_rcon_config.setEnabled(True)
-                    self.button_automatic_rcon.setEnabled(True)
-                    option_settings = settings_file_operation.load_setting(self.palserver_settings_path)
-                    self.option_settings_dict = dict(item.strip().split('=') for item in option_settings.split(','))
-                    self.text_edit_server_name.setText(self.option_settings_dict["ServerName"].replace("\"", ""))
-                    self.text_edit_server_description.setText(self.option_settings_dict["ServerDescription"].replace("\"", ""))
-                    return True
-                else:
-                    self.line_edit_palserver_path.setText("")
-                    self.config.pop("palserver_path")
-                    self.save_config_json()
-                    self.text_browser_rcon_server_notice("client_error", "服务端路径下的 /Pal/Saved/Config/WindowsServer/PalWorldSettings.ini 配置文件不存在，请手动运行一次PalServer.exe，或检查服务端完整性！")
-                    return False
-            else:
-                self.line_edit_palserver_path.setText("")
-                self.config.pop("palserver_path")
-                self.save_config_json()
-                self.text_browser_rcon_server_notice("client_error", "检测到 PalServer.exe 文件不存在，请重新选择！")
-                return False
-        else:
+        if "palserver_path" not in self.config:
             return False
+
+        if os.path.isfile(self.config["palserver_path"]) is False:
+            self.line_edit_palserver_path.setText("")
+            self.config.pop("palserver_path")
+            self.save_config_json()
+            self.text_browser_rcon_server_notice("client_error", "检测到 PalServer.exe 文件不存在，请重新选择！")
+            return False
+
+        self.palserver_settings_path = os.path.abspath(os.path.join(self.config["palserver_path"], r"../Pal/Saved/Config/WindowsServer/PalWorldSettings.ini"))
+        if os.path.isfile(self.palserver_settings_path) is False:
+            self.line_edit_palserver_path.setText("")
+            self.config.pop("palserver_path")
+            self.save_config_json()
+            self.text_browser_rcon_server_notice("client_error", "服务端路径下的 /Pal/Saved/Config/WindowsServer/PalWorldSettings.ini 配置文件不存在，请启动一次PalServer.exe，或检查服务端完整性！")
+            return False
+
+        self.line_edit_palserver_path.setText(self.config["palserver_path"])
+        if os.stat(self.palserver_settings_path).st_size < 10:
+            self.text_browser_rcon_server_notice("client_success", "检测到 服务端路径下的 /Pal/Saved/Config/WindowsServer/PalWorldSettings.ini 配置文件大小不正确，正在重新初始化。")
+            settings_file_operation.default_setting(self.palserver_settings_path)
+
+        self.save_config_json()
+        self.button_open_settings_dir.setEnabled(True)
+        self.button_open_rcon_settings_file.setEnabled(True)
+        self.button_get_rcon_config.setEnabled(True)
+        self.button_automatic_rcon.setEnabled(True)
+        try:
+            self.option_settings_dict = settings_file_operation.load_setting(self.palserver_settings_path)
+        except:
+            settings_file_operation.default_setting(self.palserver_settings_path)
+            settings_file_operation.load_setting(self.palserver_settings_path)
+            shutil.copy(self.palserver_settings_path, os.path.join(sys.argv[0], "../PalWorldSettings.ini"))
+            self.text_browser_rcon_server_notice("client_success", "检测到 服务端路径下的 /Pal/Saved/Config/WindowsServer/PalWorldSettings.ini 配置文件读取出错，已自动重置配置文件，旧文件已备份到软件根目录。")
+            QMessageBox.critical(self, "错误", "检测到 服务端路径下的 /Pal/Saved/Config/WindowsServer/PalWorldSettings.ini 配置文件读取出错，已自动重置配置文件，旧文件已备份到软件根目录。")
+        self.text_edit_server_name.setText(self.option_settings_dict["ServerName"].replace("\"", ""))
+        self.text_edit_server_description.setText(self.option_settings_dict["ServerDescription"].replace("\"", ""))
 
     def button_select_file_click(self):
         qfile_dialog = QFileDialog.getOpenFileName(self, "选择文件", "/", "PalServer (PalServer.exe)")
         self.config["palserver_path"] = qfile_dialog[0]
+        self.save_config_json()
         self.text_browser_rcon_server_notice("client_success", "已获取PalServer.exe路径：" + qfile_dialog[0])
         self.check_palserver_path()
 
@@ -449,7 +450,6 @@ class Window(QMainWindow):
         self.config["rcon_port"] = int(rcon_port)
         self.config["rcon_password"] = rcon_password
         self.save_config_json()
-        self.button_test_connect.setEnabled(False)
         self.rcon_connect_flag = True
         self.text_browser_rcon_server_notice("client_success", "RCON 服务器连接成功")
 
@@ -667,6 +667,16 @@ class Window(QMainWindow):
             self.line_edit_auto_backup_time_limit.setEnabled(True)
 
     def button_edit_settings_click(self):
+        if "palserver_path" in self.config is False:
+            QMessageBox.critical(self, "错误", "请先配置 PalServer.exe 路径，再修改配置文件！")
+            return
+        if self.palserver_settings_path is None:
+            QMessageBox.critical(self, "错误", "请先配置 PalServer.exe 路径，再修改配置文件！")
+            return
+        if os.path.isfile(self.palserver_settings_path) is False:
+            QMessageBox.critical(self, "错误", "服务端路径下的 /Pal/Saved/Config/WindowsServer/PalWorldSettings.ini 配置文件不存在，请启动一次PalServer.exe，或检查服务端完整性！")
+            return
+
         self.world_settings_window = world_settings_activity.Window()
         self.world_settings_window.show()
 

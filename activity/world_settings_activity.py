@@ -1,4 +1,5 @@
 import os
+import shutil
 import sys
 
 from PyQt5.uic import loadUi
@@ -23,16 +24,15 @@ class Window(QMainWindow):
         self.setWindowTitle("修改服务器配置文件")
         self.setFixedSize(880, 680)
         self.setWindowIcon(QIcon(os.path.join(self.module_path, r"../resource/favicon.ico")))
-
-        if "palserver_path" in self.config:
-            self.palserver_settings_path = os.path.join(self.config["palserver_path"], r"../Pal/Saved/Config/WindowsServer/PalWorldSettings.ini")
-            if os.path.isfile(self.palserver_settings_path):
-                option_settings = settings_file_operation.load_setting(self.palserver_settings_path)
-                self.option_settings_dict = dict(item.strip().split('=') for item in option_settings.split(','))
-                self.load_settings()
-            else:
-                QMessageBox.critical(self, "错误", "服务端路径下的 /Pal/Saved/Config/WindowsServer/PalWorldSettings.ini 配置文件不存在，请手动运行一次PalServer.exe，或检查服务端完整性！")
-                self.close()
+        self.palserver_settings_path = os.path.join(self.config["palserver_path"], r"../Pal/Saved/Config/WindowsServer/PalWorldSettings.ini")
+        try:
+            self.option_settings_dict = settings_file_operation.load_setting(self.palserver_settings_path)
+        except:
+            settings_file_operation.default_setting(self.palserver_settings_path)
+            shutil.copy(self.palserver_settings_path, os.path.join(sys.argv[0], "PalWorldSettings.ini"))
+            self.text_browser_rcon_server_notice("client_success", "检测到 服务端路径下的 /Pal/Saved/Config/WindowsServer/PalWorldSettings.ini 配置文件读取出错，已自动重置配置文件，旧文件已备份到软件根目录。")
+            QMessageBox.critical(self, "错误", "检测到 服务端路径下的 /Pal/Saved/Config/WindowsServer/PalWorldSettings.ini 配置文件读取出错，已自动重置配置文件，旧文件已备份到软件根目录。")
+        self.load_settings()
 
     def load_settings(self):
         # print(self.option_settings_dict)
@@ -190,5 +190,6 @@ class Window(QMainWindow):
 
     def button_default_click(self):
         settings_file_operation.default_setting(self.palserver_settings_path)
+        self.option_settings_dict = settings_file_operation.load_setting(self.palserver_settings_path)
         self.load_settings()
         QMessageBox.information(self, "成功", "服务器配置文件已还原成默认值！")
