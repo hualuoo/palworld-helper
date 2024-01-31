@@ -19,6 +19,8 @@ if __name__ == '__main__':
             "auto_restart_time_limit": 7200,  # 自动重启时间间隔(秒)
             "auto_restart_player_flag": False,  # 自动重启是否判断玩家数
             "auto_restart_player_limit": 0,  # 仅在玩家数小于该值时自动重启
+            "launch_options_flag": False,  # 是否开启自定义启动项
+            "launch_options_info": "",  # 自定义启动项信息
             "auto_backup_flag": False,  # 是否开启自动备份
             "auto_backup_time_limit": 3600  # 自动备份时间间隔(秒)
         }

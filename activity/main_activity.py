@@ -6,7 +6,7 @@ import time
 from datetime import datetime, timedelta
 
 from PyQt5.uic import loadUi
-from PyQt5.QtGui import QIcon, QTextCharFormat, QColor
+from PyQt5.QtGui import QIcon, QTextCharFormat, QColor, QTextCursor
 from PyQt5.QtCore import QTimer, Qt
 from PyQt5.QtWidgets import QMainWindow, QMessageBox, QFileDialog, QTableWidgetItem, QMenu, QAction, QInputDialog, QStatusBar
 import psutil
@@ -98,6 +98,13 @@ class Window(QMainWindow):
             else:
                 self.config.pop("backup_dir_path")
                 self.save_config_json()
+
+        if "launch_options_info" in self.config:
+            self.line_edit_launch_options.setText(self.config["launch_options_info"])
+        if "launch_options_flag" in self.config:
+            self.check_box_launch_options.setChecked(self.config["launch_options_flag"])
+            self.check_box_launch_options.setEnabled(not self.config["launch_options_flag"])
+            self.line_edit_launch_options.setEnabled(not self.config["launch_options_flag"])
 
         self.timed_detection_timer_1000 = QTimer(self)
         self.timed_detection_timer_1000.timeout.connect(self.timed_detection_1000)
@@ -191,6 +198,7 @@ class Window(QMainWindow):
 
     def timed_detection_timer_60000(self):
         if self.rcon_connect_flag is False:
+            self.label_online_player.setText("未连接 RCON")
             return
 
         self.table_widget_player_list.clearContents()
@@ -278,6 +286,9 @@ class Window(QMainWindow):
             pyperclip.copy(player_steamid)
 
     def text_browser_rcon_server_notice(self, message_type, message):
+        cursor = self.text_browser_rcon_server.textCursor()
+        cursor.movePosition(QTextCursor.End)
+        self.text_browser_rcon_server.setTextCursor(cursor)
         black_format = QTextCharFormat()
         black_format.setForeground(QColor("black"))
         red_format = QTextCharFormat()
@@ -453,6 +464,9 @@ class Window(QMainWindow):
         self.rcon_connect_flag = True
         self.text_browser_rcon_server_notice("client_success", "RCON 服务器连接成功")
 
+    def check_box_launch_options_click(self, flag):
+        self.line_edit_launch_options.setEnabled(not flag)
+
     def button_game_start_click(self):
         if "palserver_path" not in self.config:
             self.text_browser_rcon_server_notice("client_error", "请先选择PalServer.exe服务端文件！")
@@ -480,7 +494,11 @@ class Window(QMainWindow):
             self.text_browser_rcon_server_notice("client_error", "游戏 人数上限需在2~128范围，请重新输入！")
             return
 
-        command = self.config["palserver_path"] + " -port=" + game_port + " -players=" + game_player_limit + " -publicip 0.0.0.0 -publicport " + game_publicport + " -EpicAPP=PalServer"
+        self.config["launch_options_flag"] = self.check_box_launch_options.isChecked()
+        self.config["launch_options_info"] = self.line_edit_launch_options.text()
+        command = self.config["palserver_path"] + " -port=" + game_port + " -players=" + game_player_limit + " -publicip 0.0.0.0 -publicport " + game_publicport
+        if self.config["launch_options_flag"]:
+            command += " " + self.config["launch_options_info"]
         process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False)
         self.config["game_port"] = int(game_port)
         self.config["game_publicport"] = int(game_publicport)
