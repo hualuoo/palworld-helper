@@ -10,7 +10,7 @@
     <img src="https://img.shields.io/badge/Language-Python-blue?style=flat-square"/>
   </a>
   <a href="https://github.com/hualuoo/palworld-helper/releases">
-    <img src="https://img.shields.io/badge/Release-V1.2.2-blue?style=flat-square"/>
+    <img src="https://img.shields.io/badge/Release-V1.2.3-blue?style=flat-square"/>
   </a>
 </p>
 <h4 align="center">6小时用PyQt搓出来的小工具，交流Q群：209726238</h4>
