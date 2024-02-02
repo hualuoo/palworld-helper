@@ -68,4 +68,4 @@ class Client(BaseClient, socket_type=SOCK_STREAM):
         """Run a command."""
         request = Packet.make_command(command, *args, encoding=encoding)
         response = self.communicate(request)
-        return response.payload.decode(encoding)
+        return response.payload.decode(encoding, "ignore")
